@@ -1,0 +1,880 @@
+body {
+    background-color: #f6f6f6;
+}
+body * {
+    font-family: "Roboto", "Arial", sans-serif;
+    color: #000;
+}
+a:hover {
+    text-decoration: underline !important;
+}
+/* Main išdėstymas */
+#kaire {
+    background-image: url('../image/kk.png');
+    background-position: right;
+    -webkit-background-size: cover;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -20;
+}
+#desine {
+    background-image: url('../image/kd.png');
+    background-position: left;
+    -webkit-background-size: cover;
+    background-size: cover;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -20;
+}
+/* /Main išdėstymas */
+.container {
+    background-color: #f6f6f6;
+    width: 896px;
+}
+
+#menu-1 {
+    background-image: url('../image/meniu1.png');
+    background-size: cover;
+    position: fixed;
+    width: 896px;
+    z-index: 2;
+    height: 86px;
+    -webkit-transition: all 300ms;
+    -moz-transition: all 300ms;
+    -ms-transition: all 300ms;
+    -o-transition: all 300ms;
+    transition: all 300ms;
+}
+    #menu-1 > * {
+        display: inline-block;
+    }
+    #menu-1 * {
+        -webkit-transition: all 300ms;
+        -moz-transition: all 300ms;
+        -ms-transition: all 300ms;
+        -o-transition: all 300ms;
+        transition: all 300ms;
+    }
+    #menu-1 #logo {
+        margin-top: 10px;
+        margin-left: 30px;
+        margin-bottom: 0;
+    }
+    #menu-1 #logo img {
+        width: 100px;
+    }
+    #menu-1 #links {
+        float: right;
+        margin: 35px 20px 30px 0;
+    }
+    #menu-1 #links li {
+        list-style-type: none;
+        display: inline-block
+    }
+    #menu-1 a {
+        color: #fff;
+        /*font-weight: bold;*/
+        font-size: 16px;
+        padding: 12px 7px;
+    }
+    #menu-1.narrow {
+        height: 56px;
+    }
+        #menu-1.narrow #logo {
+            margin-top: 0px !important;
+        }
+        #menu-1.narrow img {
+            margin-top: 5px;
+            margin-left: 10px;
+            width: 70px !important;
+        }
+        #menu-1.narrow #links {
+            margin: 18px 20px 18px 0;
+        }
+        #menu-1.narrow a {
+            font-size: 14px;
+        }
+
+.greet {
+    background: url('../image/tekstas.png') no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+    width: 500px;
+    height: 110px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: -20px;
+}
+
+#landing {
+    background: url('../image/k1.png') no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+
+    margin-top: 86px;
+    padding: 40px 0;
+    text-align: center;
+}
+#landing .zingsniai *,
+#landing .keturi-zingsniai {
+    color: #fff;
+}
+#landing .zingsniai {
+    margin-top: 32px;
+    margin-left: 220px;
+    margin-bottom: 43px;
+    overflow: hidden;
+}
+#landing .ikona {
+    float: left;
+    margin-left: 30px;
+}
+#landing .ikona i {
+    font-size: 55px;
+}
+#landing .uzrasai {
+    margin-top: 60px;
+    line-height: 160%;
+}
+#landing .uzrasas {
+    float: left;
+    font-size: 20px;
+}
+.uzrasas.ikelk {
+    margin-right: 115px;
+    margin-left: 40px;
+}
+.uzrasas.uzpildyk {
+    margin-right: 105px;
+}
+    #landing .nuotrauku-kelimas {
+        width: 95%;
+        margin: 370px auto 0;
+        background-image: url('../image/ikelimas.png');
+        -webkit-background-size: cover;
+        background-size: cover;
+        padding: 20px;
+        border: 0;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+    .dropzone {
+        background: none;
+        border: none;
+    }
+    .dz-message span {
+        color: #fff;
+    }
+    #landing .nuotrauku-kelimas .file-thumbnail-footer .file-caption-name {
+        color: #fff;
+    }
+    #photos-2 {
+        min-height: 400px;
+    }
+    #ikeliau-toliau {
+        font-size: 20px;
+        color: #fff;
+        margin-top: 20px;
+        display: block;
+    }
+#rinktis-parametrus {
+    display: none;
+}
+    #rinktis-parametrus table {
+        font-size: 12px;
+        margin-left: 10px;
+        width: 98.5%;
+    }
+    #rinktis-parametrus td {
+        padding: 8px;
+    }
+    #rinktis-parametrus .tr-pavadinimai {
+        font-size: 18px;
+    }
+        #rinktis-parametrus .tr-pavadinimai td {
+            padding: 10px 0 15px;
+            color: #fff;
+        }
+    .td-pazymeti {
+        width: 3%;
+    }
+    .td-nuotrauka {
+        width: 15%;
+    }
+    .td-nuotrauka img {
+        padding: 4px;
+    }
+    .td-pavadinimas {
+        color: #fff;
+        width: 36%;
+    }
+    .td-dydis {
+        font-size: 12px;;
+    }
+        .select-style {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            overflow: hidden;
+            background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
+            margin: 0 auto;
+            width: 70px;
+            height: 25px;
+        }
+
+        .select-style select {
+            padding: 1px 0px 2px;
+            width: 100%;
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+        }
+
+        .select-style select:focus {
+            outline: none;
+        }
+    .td-kiekis {
+        width: 9%;
+    }
+        .td-kiekis input {
+            border: 1px solid #ccc;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            padding: 2px 5px;
+            font-size: 12px;
+            width: 100%;
+        }
+    .td-panaikinti .fa {
+        color: #fff;
+        font-size: 26px;
+        cursor: pointer;
+    }
+    #dydziai {
+        color: #fff;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+        .dydziai {
+            margin-bottom: 5px;
+        }
+        #dydziai .select-style {
+            display: inline-block;
+        }
+        .parinkti {
+            color: #fff;
+            display: inline-block;
+            position: relative;
+            top: -8px;
+            left: -5px;
+        }
+    #viso {
+        color: #fff;
+    }
+    #viso * {
+        color: #fff;
+    }
+    #atzymeti,
+    #pazymeti {
+        padding: 3px 7px !important;
+    }
+    #apmoketi {
+        margin-bottom: 10px;
+    }
+#apmokejimas {
+    display: none;
+}
+    #apmokejimas #uzsakymo-suma,
+    #apmokejimas .info {
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 7px;
+    }
+        #apmokejimas #uzsakymo-suma *,
+        #apmokejimas .info * {
+            color: #fff;
+        }
+    #kontaktu-forma {
+        text-align: center;
+    }
+        #kontaktu-forma > * {
+            display: inline-block;
+
+        }
+        #kontaktu-forma a {
+            display: block;
+            margin: 0 auto;
+            color: #000;
+            background: #fff;
+            width: 17%;
+            padding: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #kontaktu-forma input,
+        #kontaktu-forma textarea {
+            width: 78%;
+            margin: 0 auto 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        #kontaktu-forma input[name="vardas"],
+        #kontaktu-forma input[name="pavarde"],
+        #kontaktu-forma input[name="email"],
+        #kontaktu-forma input[name="telefonas"] {
+            width: 34%;
+        }
+        #kontaktu-forma input[name="adresas"],
+        #kontaktu-forma textarea[name="komentaras"] {
+            width: 68.5%;
+        }
+        #butina {
+            display: none;
+        }
+
+
+#progresas {
+    border: 0;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 30px;
+    height: 50px;
+    background: #eee;
+    opacity: 0.7;
+    left: 39%;
+    right: 39%;
+    z-index: 2;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+    display: none;
+}
+#progresas a {
+    cursor: pointer;
+    color: #000;
+}
+#progresas #atgal,
+#progresas #pirmyn {
+    visibility: hidden;;
+}
+
+#diving-beach {
+    background-image: url('../image/k2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 0;
+    width: 100%;
+    padding-top: 68%;
+    position: relative;
+    z-index: 1;
+}
+
+
+#paslaugos {
+    padding: 40px 0 65px;
+    text-align: center;
+}
+    #paslaugos a,
+    #paslaugos a:hover {
+        color: #fff;
+        padding: 10px;
+        display: block;
+        -webkit-background-size: cover;
+        background-size: cover;
+        margin: 0 auto;
+        height: 60px;
+        width: 140px;
+    }
+    .paslaugos {
+        color: #000;
+        font-size: 150%;
+        font-weight: bold;
+        font-weight: bolder;
+        position: relative;
+        z-index: 1;
+        width: 90%;
+        margin: 0 auto 60px;
+    }
+    .paslauga {
+        display: inline-block;
+        text-align: center;
+        width: 24.5%;
+    }
+    .paslauga > div:first-child {
+        border: 4px solid;
+        padding: 5px;
+        display: inline-block;
+    }
+    #nuotrauku-spausdinimas {
+        border-color: #1C437E;
+    }
+    #nuotrauku-spausdinimas a {
+        background-image: url('../image/m1.png');
+    }
+    #skaitmenine-spauda {
+        border-color: #067772;
+    }
+    #skaitmenine-spauda a {
+        background-image: url('../image/m2.png');
+    }
+    #spaudos-darbai {
+        border-color: #5F8CD0;
+    }
+    #spaudos-darbai a {
+        background-image: url('../image/m3.png');
+    }
+    #firminis-stilius {
+        border-color: #61C780
+    }
+    #firminis-stilius a {
+        background-image: url('../image/m4.png');
+    }
+    #fotografavimo-paslaugos {
+        border-color: #B716B2;
+    }
+    #fotografavimo-paslaugos a {
+        background-image: url('../image/m5.png');
+    }
+    #renginiu-filmavimas {
+        border-color: #DACF52;
+    }
+    #renginiu-filmavimas a {
+        background-image: url('../image/m6.png');
+    }
+    #vaizdo-klipai {
+        border-color: #A240BB;
+    }
+    #vaizdo-klipai a {
+        background-image: url('../image/m7.png');
+    }
+    #suvenyrai {
+        border-color: #41A051;
+    }
+    #suvenyrai a {
+        background-image: url('../image/m8.png');
+        line-height: 40px;
+    }
+        .paslauga-info {
+            padding: 10px 20px;
+            line-height: 1.4;
+        }
+
+
+#photography {
+    background-image: url('../image/k3.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 0;
+    width: 100%;
+    padding-top: 66.1%;
+    position: relative;
+    margin-top: -149px;
+}
+
+
+#kas-mes {
+    padding: 50px 150px 0;
+    text-align: center;
+}
+#kas-mes img {
+    margin: 10px 0 20px;
+    width: 200px;
+}
+#kas-mes .apie {
+    font-size: 20px;
+    line-height: 30px;
+    text-align: justify;
+}
+
+
+#sky-frames {
+    background-image: url('../image/k4.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 0;
+    width: 100%;
+    position: relative;
+    padding-top: 65.7%;
+}
+
+
+#atsiliepimai {
+    padding: 80px 0 70px;
+    text-align: center;
+}
+#atsiliepimai .zmones {
+    margin: 0 auto;
+    overflow: hidden;
+}
+#atsiliepimai .zmogus {
+    float: left;
+    margin: 0 0 0 4%;
+    width: 28%;
+    text-align: center;
+}
+#atsiliepimai .zmogus.z-pirmas .veidas {
+    background: url('../image/aa2.png') no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+#atsiliepimai .zmogus.z-antras .veidas {
+    background: url('../image/aa1.png') no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+#atsiliepimai .zmogus.z-trecias .veidas {
+    background: url('../image/aa3.png') no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+#atsiliepimai .zmogus .veidas {
+    padding: 6px;
+}
+#atsiliepimai .zmogus img {
+    border: 0;
+    border-radius: 50%;
+    width: 55%;
+}
+#atsiliepimai .atsiliepimas {
+    margin-top: 15px;
+}
+
+
+#uzsisakyti-nuotraukas {
+    background-image: url('../image/apacia1_2.jpg');
+    -webkit-background-size: cover;
+    background-size: cover;
+    overflow: hidden;
+    padding: 50px 0;
+    text-align: center;
+}
+.narsyti {
+    color: #fff !important;
+    padding: 8px 10px 7px !important;
+
+    border-radius: 2px !important;
+    background-color: #f7941d !important;
+    background: -webkit-linear-gradient(#ff7e00, #ff5e00) !important;
+    background: -moz-linear-gradient(#ff7e00, #ff5e00) !important;
+    background: -ms-linear-gradient(#ff7e00, #ff5e00) !important;
+    background: -o-linear-gradient(#ff7e00, #ff5e00) !important;
+    background: linear-gradient(#ff7e00, #ff5e00) !important;
+    box-shadow: inset 0px 1px 0px #ffa44c, inset 0 -1px 2px #cc4b00 !important;
+    text-shadow: 1px 1px #801100 !important;
+    color: #fff !important;
+    border: 0 !important;
+    font-size: 12px !important;
+    line-height: 19px !important;
+    font-weight: bold !important;
+    font-family: arial !important;
+    text-align: center !important;
+    background-repeat: no-repeat !important;
+    cursor: pointer
+}
+.narsyti:hover {
+    background-color: #eb8016 !important;
+    background: -webkit-linear-gradient(#f26c00, #f24e00) !important;
+    background: -moz-linear-gradient(#f26c00, #f24e00) !important;
+    background: -ms-linear-gradient(#f26c00, #f24e00) !important;
+    background: -o-linear-gradient(#f26c00, #f24e00) !important;
+    background: linear-gradient(#f26c00, #f24e00) !important;
+    box-shadow: inset 0px 1px 0px #ff9c4c, inset 0 -1px 2px #bf3d00 !important;
+}
+.narsyti:active {
+    background-color: #de7312 !important;
+    background: -webkit-linear-gradient(#ff5e00, #ff5e00) !important;
+    background: -moz-linear-gradient(#ff5e00, #ff5e00) !important;
+    background: -ms-linear-gradient(#ff5e00, #ff5e00) !important;
+    background: -o-linear-gradient(#ff5e00, #ff5e00) !important;
+    background: linear-gradient(#ff5e00, #ff5e00) !important;
+    box-shadow: inset 0px 2px 4px #7f2f00 !important;
+}
+    .narsyti .glyphicon {
+        color: #fff;
+    }
+#uzsisakyti-nuotraukas .uzsisakyti,
+#landing .ikelti {
+    color: #fff;
+    padding: 20px 30px;
+
+    border-style: solid;
+    border-radius: 5px;
+    background-color: #f7941d;
+    background: -webkit-linear-gradient(#ff7e00, #ff5e00);
+    background: -moz-linear-gradient(#ff7e00, #ff5e00);
+    background: -ms-linear-gradient(#ff7e00, #ff5e00);
+    background: -o-linear-gradient(#ff7e00, #ff5e00);
+    background: linear-gradient(#ff7e00, #ff5e00);
+    box-shadow: inset 0px 1px 0px #ffa44c, inset 0 -1px 2px #cc4b00;
+    text-shadow: 1px 1px #801100;
+    color: #fff;
+    border-width: 1px;
+    border-color: #ff9500;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    font-family: arial;
+    text-align: center;
+    background-repeat: no-repeat;
+}
+#uzsisakyti-nuotraukas .uzsisakyti:hover,
+#landing .ikelti:hover {
+    background-color: #eb8016;
+    background: -webkit-linear-gradient(#f26c00, #f24e00);
+    background: -moz-linear-gradient(#f26c00, #f24e00);
+    background: -ms-linear-gradient(#f26c00, #f24e00);
+    background: -o-linear-gradient(#f26c00, #f24e00);
+    background: linear-gradient(#f26c00, #f24e00);
+    box-shadow: inset 0px 1px 0px #ff9c4c, inset 0 -1px 2px #bf3d00;
+}
+#uzsisakyti-nuotraukas .uzsisakyti:active,
+#landing .ikelti:active {
+    background-color: #de7312;
+    background: -webkit-linear-gradient(#ff5e00, #ff5e00);
+    background: -moz-linear-gradient(#ff5e00, #ff5e00);
+    background: -ms-linear-gradient(#ff5e00, #ff5e00);
+    background: -o-linear-gradient(#ff5e00, #ff5e00);
+    background: linear-gradient(#ff5e00, #ff5e00);
+    box-shadow: inset 0px 2px 4px #7f2f00;
+}
+#landing .ikelti {
+    font-size: 16px;
+    padding: 12px 25px;
+}
+
+
+#kontaktai {
+    /*position: relative;*/
+}
+
+
+#privacy {
+    background-image: url('../image/apacia2.png');
+    -webkit-background-size: contain;
+    background-size: cover;
+    text-align: center;
+    padding: 15px 0;
+}
+#privacy > div {
+    display: inline-block;
+    color: #808080;
+}
+#privacy > div a {
+    color: #808080;
+}
+
+
+.title {
+    font-size: 380%;
+    line-height: 110%;
+    position: relative;
+    z-index: 1;
+}
+#landing .title {
+    font-size: 320%;
+    color: #ffa500;
+    font-weight: bold;
+    /*text-shadow:*/
+    /*-1px -1px 0 #fff,*/
+    /*1px -1px 0 #fff,*/
+    /*-1px 1px 0 #fff,*/
+    /*1px 1px 0 #fff;*/
+}
+#landing .title #paprasta {
+    font-weight: normal;
+    font-style: italic;
+    color: #ffa500;
+}
+#paslaugos .title {
+    margin-bottom: 100px;
+}
+#diving-beach .title {
+    position: absolute;
+    margin-top: -188px;
+    margin-left: 17px;
+    font-weight: bold;
+    color: #FFD912;
+    font-size: 36px;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    border: 4px solid #FFD912;
+}
+#sky-frames .title {
+    color: #0066cc;
+    font-size: 36px;
+    position: absolute;
+    left: 17px;
+    bottom: -46px;
+    margin-bottom: 60px;
+    font-weight: bold;
+    border: 4px solid #0066cc;
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+}
+#photography .title {
+    color: #14CCB5;
+    position: absolute;
+    text-align: center;
+    right: 17px;
+    bottom: 16px;
+    padding: 10px;
+    font-size: 36px;
+    font-weight: bold;
+    border: 4px solid #14CCB5;
+    display: inline-block;
+}
+.flr {
+    float: right;
+}
+.fll {
+    float: left;
+}
+
+/* NUOTRAUKŲ ĮKĖLIMAS */
+.file-upload-indicator,
+.kv-file-upload {
+    display: none;
+}
+
+.selected {
+    border: 3px solid #e77228;
+    padding: 1px !important;
+}
+#select-picture-size {
+    text-align: center;
+}
+#select-picture-size select {
+    margin-top: 20px;
+}
+.file-preview-frame {
+    position: relative;
+}
+
+/* Overrides */
+.file-drop-zone-title {
+    color: #f0f0f0 !important;
+    font-size: 30px !important;
+}
+.file-drop-zone {
+    border: none !important;
+}
+.file-drop-zone.highlighted {
+    border: 1px dashed #fff !important;
+    background: 0;
+}
+.file-preview {
+    border: 1px dashed #609d39 !important;
+}
+.form-control.file-caption.kv-fileinput-caption {
+    background-color: #fbfbfb;
+}
+.close.fileinput-remove {
+    /*color: #fff;*/
+    /*opacity: 1;*/
+}
+div.input-group {
+    z-index: 1;
+}
+a {
+    cursor: pointer;
+}
+.ui-accordion .ui-accordion-header {
+    margin: 0 !important;
+}
+/* /Overrides */
+
+/* /Nuotraukų įkėlimas */
+
+/* Paslaugų modals */
+.modal {
+    bottom: auto;
+    /*width: 70%;*/
+    z-index: 3 !important;
+    position: relative;
+}
+.modal.wide {
+    padding: 0 !important;
+    width: 65% !important;
+}
+.ikon,
+.modal .title {
+    display: inline-block;
+    font-size: 20px;
+}
+.ikon i {
+    font-size: 60px !important;
+}
+.jquery-modal.blocker {
+    z-index:  2 !important;
+}
+.juosta {
+    height: 30px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-background-size: cover !important;
+    background-size: cover !important;
+    background-position: bottom;
+}
+
+.ui-accordion-header * {
+    color: #fff !important;
+}
+.ui-accordion-header {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color: #fff !important;
+}
+#nuotrauku-spausdinimas-modal .ui-accordion-header {
+    background: url('../image/l1.png') !important;
+    border: 1px solid #6384b5;
+}
+
+#skaitmenine-spauda-modal .ui-accordion-header {
+    background: url('../image/l2.png');
+    border: 1px solid #5daeac;
+}
+#spaudos-darbai-modal .ui-accordion-header {
+    background: url('../image/l3.png');
+    border: 1px solid #8eaced;
+}
+#firminis-stilius-modal .ui-accordion-header {
+    background: url('../image/l4.png');
+    border: 1px solid #60c76f;
+}
+#fotografavimo-paslaugos-modal .ui-accordion-header {
+    background: url('../image/l5.png');
+    border: 1px solid #c827c3;
+}
+#renginiu-filmavimas-modal .ui-accordion-header {
+    background: url('../image/l6.png');
+    border: 1px solid #dbd253;
+}
+#vaizdo-klipai-modal .ui-accordion-header {
+    background: url('../image/l7.png');
+    border: 1px solid #c87dd3;
+}
+#suvenyrai-modal .ui-accordion-header {
+    background: url('../image/l8.png');
+    border: 1px solid #2e913e;
+}
+/* /Paslaugų modals */
+
+/* Successful */
+.payment-successful {
+    font-size: 14px;
+    display: none;
+    position: relative;
+    z-index: 9999999;
+}
+/* /Successful */

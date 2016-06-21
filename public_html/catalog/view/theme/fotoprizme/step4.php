@@ -1,0 +1,1 @@
+<meta charset="UTF-8"><div id="aciu">    Ačiū, kad naudojatės mūsų paslaugomis!<br/>    Užsakymo vykdymas bus pradėtas po sėkmingo apmokėjimo.<br/>    Apie eigą informuosime nurodytu el. paštu.</div>
