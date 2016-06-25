@@ -1,5 +1,4 @@
 <?php
-print 'smart_resize_image.function.php';//RZ
 require('smart_resize_image.function.php');
 require_once('connect.php');
 
@@ -37,97 +36,97 @@ $userId = $_POST['userId'];
 
 // proccess file.
 
-    $ext = array_pop(explode('.', basename($filename)));
-    $filename_no_ext = rtrim(str_replace($ext, '', $filename), '.');
+$ext = array_pop(explode('.', basename($filename)));
+$filename_no_ext = rtrim(str_replace($ext, '', $filename), '.');
 
-    $new_filename = $filename_no_ext . '_' . substr(md5(uniqid('', TRUE)), 1, 16) . "." . $ext;
+$new_filename = $filename_no_ext . '_' . substr(md5(uniqid('', TRUE)), 1, 16) . "." . $ext;
 
-    date_default_timezone_set('Europe/Vilnius');
-    $current_year = date('Y');
-    $current_month = date('m');
-    $current_day = date('d');
-    $uploaded_images_directory =
-        __DIR__
-        . DIRECTORY_SEPARATOR
-        . "uploads"
-        . DIRECTORY_SEPARATOR
-        . $current_year
-        . DIRECTORY_SEPARATOR
-        . $current_month
-        . DIRECTORY_SEPARATOR
-        . $current_day;
-    
-    $uploaded_images_thumbs_directory =
-        __DIR__
-        . DIRECTORY_SEPARATOR
-        . "uploads"
-        . DIRECTORY_SEPARATOR
-        . "thumbs"
-        . DIRECTORY_SEPARATOR
-        . $current_year
-        . DIRECTORY_SEPARATOR
-        . $current_month
-        . DIRECTORY_SEPARATOR
-        . $current_day;
-    $url = '';
-    $url =
-        DIRECTORY_SEPARATOR
-        . 'catalog'
-        . DIRECTORY_SEPARATOR
-        . 'view'
-        . DIRECTORY_SEPARATOR
-        . 'theme'
-        . DIRECTORY_SEPARATOR
-        . 'fotoprizme'
-        . DIRECTORY_SEPARATOR
-        . 'uploads'
-        . DIRECTORY_SEPARATOR
-        . $current_year
-        . DIRECTORY_SEPARATOR
-        . $current_month
-        . DIRECTORY_SEPARATOR
-        . $current_day
-        . DIRECTORY_SEPARATOR
-        . $new_filename;
-    $url_thumb = '';
-    $url_thumb =
-        DIRECTORY_SEPARATOR
-        . 'catalog'
-        . DIRECTORY_SEPARATOR
-        . 'view'
-        . DIRECTORY_SEPARATOR
-        . 'theme'
-        . DIRECTORY_SEPARATOR
-        . 'fotoprizme'
-        . DIRECTORY_SEPARATOR
-        . 'uploads'
-        . DIRECTORY_SEPARATOR
-        . 'thumbs'
-        . DIRECTORY_SEPARATOR
-        . $current_year
-        . DIRECTORY_SEPARATOR
-        . $current_month
-        . DIRECTORY_SEPARATOR
-        . $current_day
-        . DIRECTORY_SEPARATOR
-        . $new_filename;
+date_default_timezone_set('Europe/Vilnius');
+$current_year = date('Y');
+$current_month = date('m');
+$current_day = date('d');
+$uploaded_images_directory =
+    __DIR__
+    . DIRECTORY_SEPARATOR
+    . "uploads"
+    . DIRECTORY_SEPARATOR
+    . $current_year
+    . DIRECTORY_SEPARATOR
+    . $current_month
+    . DIRECTORY_SEPARATOR
+    . $current_day;
 
-    if (!file_exists($uploaded_images_directory)) {
-        mkdir($uploaded_images_directory, 0755, true);
-    }
+$uploaded_images_thumbs_directory =
+    __DIR__
+    . DIRECTORY_SEPARATOR
+    . "uploads"
+    . DIRECTORY_SEPARATOR
+    . "thumbs"
+    . DIRECTORY_SEPARATOR
+    . $current_year
+    . DIRECTORY_SEPARATOR
+    . $current_month
+    . DIRECTORY_SEPARATOR
+    . $current_day;
+$url = '';
+$url =
+    DIRECTORY_SEPARATOR
+    . 'catalog'
+    . DIRECTORY_SEPARATOR
+    . 'view'
+    . DIRECTORY_SEPARATOR
+    . 'theme'
+    . DIRECTORY_SEPARATOR
+    . 'fotoprizme'
+    . DIRECTORY_SEPARATOR
+    . 'uploads'
+    . DIRECTORY_SEPARATOR
+    . $current_year
+    . DIRECTORY_SEPARATOR
+    . $current_month
+    . DIRECTORY_SEPARATOR
+    . $current_day
+    . DIRECTORY_SEPARATOR
+    . $new_filename;
+$url_thumb = '';
+$url_thumb =
+    DIRECTORY_SEPARATOR
+    . 'catalog'
+    . DIRECTORY_SEPARATOR
+    . 'view'
+    . DIRECTORY_SEPARATOR
+    . 'theme'
+    . DIRECTORY_SEPARATOR
+    . 'fotoprizme'
+    . DIRECTORY_SEPARATOR
+    . 'uploads'
+    . DIRECTORY_SEPARATOR
+    . 'thumbs'
+    . DIRECTORY_SEPARATOR
+    . $current_year
+    . DIRECTORY_SEPARATOR
+    . $current_month
+    . DIRECTORY_SEPARATOR
+    . $current_day
+    . DIRECTORY_SEPARATOR
+    . $new_filename;
 
-    $path = $uploaded_images_directory . DIRECTORY_SEPARATOR . $new_filename;
-    $path_thumb = $uploaded_images_thumbs_directory . DIRECTORY_SEPARATOR . $new_filename;
+if (!file_exists($uploaded_images_directory)) {
+    mkdir($uploaded_images_directory, 0755, true);
+}
 
-    if(move_uploaded_file($filetmp_name, $path)) {
-        $success = true;
+$path = $uploaded_images_directory . DIRECTORY_SEPARATOR . $new_filename;
+$path_thumb = $uploaded_images_thumbs_directory . DIRECTORY_SEPARATOR . $new_filename;
 
-        smart_resize_image($path, null, 120, 0, true, $path_thumb, $uploaded_images_thumbs_directory, false, false, 80);
-        save_data($con, $filename, $new_filename, $filetype, $ext, $filetmp_name, $filesize, $path, $path_thumb, $url, $url_thumb, $userId);
+if(move_uploaded_file($filetmp_name, $path)) {
+    $success = true;
 
-    } else {
-        $success = false;
-    }
+    smart_resize_image($path, null, 120, 0, true, $path_thumb, $uploaded_images_thumbs_directory, false, false, 80);
+    save_data($con, $filename, $new_filename, $filetype, $ext, $filetmp_name, $filesize, $path, $path_thumb, $url, $url_thumb, $userId);
+
+} else {
+    $success = false;
+}
 
 // check and process based on successful status
 if ($success === true) {

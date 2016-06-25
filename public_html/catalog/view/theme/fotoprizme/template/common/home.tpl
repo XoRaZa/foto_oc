@@ -1,5 +1,7 @@
 <?php echo $header; ?>
 <!--suppress ALL -->
+<? //RZ echo var_dump($session_id); ?>
+<input type="hidden" id="sessionId" value="<? //RZ echo $session_id; ?>">
 <div id="kaire"></div>
 <div class="container">
     <div class="row">
@@ -13,6 +15,7 @@
                 <li><a href="#paslaugos">Paslaugos</a></li>
                 <li><a href="#kas-mes">Apie mus</a></li>
                 <li><a href="#atsiliepimai">Atsiliepimai</a></li>
+                <li><a href="/catalog/view/theme/fotoprizme/wiki/index.html" target="_blank">Instrukcijos</a></li>
                 <li><a href="#kontaktai">Kontaktai</a></li>
             </ul>
         </div>
@@ -49,14 +52,14 @@
             </div>
             <a href="#ikelti-nuotraukas" class="ikelti">Įkelti nuotraukas</a>
 
-                <!-- Nuotraukų įkelimas -->
+            <!-- Nuotraukų įkelimas -->
             <div class="nuotrauku-kelimas" id="ikelti-nuotraukas">
                 <!-- Image uploading -->
                 <div id="add-photos">
-                    <form action="/catalog/view/theme/fotoprizme/upload.php" class="dropzone" id="photos-2"></form>
+                    <form actionn="" class="dropzone" id="photos-2"></form>
                     <a href="" id="ikeliau-toliau">Tęsti</a>
                     <input type="hidden" id="userId" value="">
-                    <input type="hidden" id="payment-successful" value="<?php echo $paymentSuccessful; ?>">
+                    <input type="hidden" id="payment-successful" value="<?php if (isset($paymentSuccessful)) echo $paymentSuccessful; ?>">
                 </div>
 
                 <div id="patvirtinimas" title="Ar norite pradėti iš naujo?" style="display: none;">
@@ -642,4 +645,16 @@
     </div>
 </div>
 <?php echo $footer; ?>
-<?php echo $address; ?>
+<?php //echo $address; ?>
+
+<script>
+  window.onload = function() {
+    //alert( 'Dokumentas ir resursai uzkrauti pilnai' );
+  };
+</script>
+<script>
+  function ready() {
+    //alert( "DOM uzkrautas (be resursu: paveikleliu, kai kuriu css'u ir panasiai)");
+  }
+  document.addEventListener("DOMContentLoaded", ready);
+</script>

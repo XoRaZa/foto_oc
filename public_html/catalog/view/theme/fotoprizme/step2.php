@@ -127,8 +127,8 @@ $results = $stmt->fetchAll();
     </div>
     <button id="apmoketi" class="narsyti">Apmokėti užsakymą</button>
 
-<script type="text/javascript" src="/catalog/view/javascript/j/change_size.js"></script>
-<script type="text/javascript" src="/catalog/view/javascript/j/change_pavirsius.js"></script>
-<script type="text/javascript" src="/catalog/view/javascript/j/change_kadravimas.js"></script>
-<script type="text/javascript" src="/catalog/view/javascript/j/change_quantity.js"></script>
-<script type="text/javascript" src="/catalog/view/javascript/j/re.js"></script>
+<script type="text/javascript" src="/catalog/view/javascript/jfoto/change_size.js"></script>
+<script type="text/javascript" src="/catalog/view/javascript/jfoto/change_pavirsius.js"></script>
+<script type="text/javascript" src="/catalog/view/javascript/jfoto/change_kadravimas.js"></script>
+<script type="text/javascript" src="/catalog/view/javascript/jfoto/change_quantity.js"></script>
+<script type="text/javascript" src="/catalog/view/javascript/jfoto/re.js"></script>

@@ -24,9 +24,9 @@
 <!--    <label for="komentaras">Papildomas komentaras</label>-->
     <textarea name="komentaras" placeholder="Papildomas komentaras"></textarea>
 
-    <a href="/libwebtopay/redirect.php" id="sumoketi" class="narsyti" target="_blank">Apmokėti užsakymą</a>
+    <a href="/catalog/view/paysera/redirect.php" id="sumoketi" class="narsyti" target="_blank">Apmokėti užsakymą</a>
 </form>
 
 <div id="butina">Būtina užpildyti * pažymėtus laukelius</div>
 
-<script type="text/javascript" src="/catalog/view/javascript/j/pay.js"></script>
+<script type="text/javascript" src="/catalog/view/javascript/jfoto/pay.js"></script>

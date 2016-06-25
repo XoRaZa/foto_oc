@@ -15,7 +15,34 @@ class ControllerCommonHome extends Controller {
 		$data['content_bottom'] = $this->load->controller('common/content_bottom');
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
+                
+                
+                //RZ reiketu iskelti include'a, kad maziau keisti updatinant OC
+                $data['welcome_text'] = $this->language->get('text_welcome');
+                // Check if cookie exists
+                $cookieName = 'userId';
+                if (isset($_COOKIE[$cookieName])) {
+                    $data['userId'] = $_COOKIE[$cookieName];
+                } else {
+                    $data['userId'] = '';
+                }
+                if (isset($_COOKIE['userIdSet'])) {
+                    $data['userIdSet'] = $_COOKIE['userIdSet'];
+                } else {
+                    $data['userIdSet'] = '0';
+                }
 
+                // Check for 'success'
+                $data['paymentSuccessful'] = '';
+                if (isset($_GET['success'])) {
+                    if ($_GET['success'] == 'true') {
+                        $data['paymentSuccessful'] = TRUE;
+                    }
+                }
+                //??? neaisku kaip naudoti
+                $data['session_id'] = 'session_id()';
+                //RZ end
+                
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/common/home.tpl')) {
 			$this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/common/home.tpl', $data));
 		} else {
