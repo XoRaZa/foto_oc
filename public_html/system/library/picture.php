@@ -25,7 +25,7 @@ class Picture {
                                         . DB_PREFIX . "order_product op "
                                         . "LEFT JOIN picture pic ON (op.order_product_id = pic.order_product_id) WHERE op.product_id = '" . (int)$product_id . "'";
                                 
-                                //file_put_contents('/home/pprelati/domains/kado.lt/public_html/aaaaa1.html', 'picture query:'.$query_str."\n", FILE_APPEND);
+                                //file_put_contents('/home/pprelati/domains/kado.lt/public_html/--sys-lib-picture.html', 'picture query:'.$query_str."\n", FILE_APPEND);
 
 				$picture_query = $this->db->query($query_str);
 
@@ -33,6 +33,7 @@ class Picture {
 				if ($picture_query->num_rows) {
 					$this->data[$key] = array(
 						'key'             => $key,
+                                                'order_id' => $picture_query->row['order_id'],
                                                 'order_product_id' => $picture_query->row['order_product_id'],
                                                 'product_id' => $picture_query->row['product_id'],
                                                 'time' => $picture_query->row['time'],
@@ -61,7 +62,7 @@ class Picture {
                         }
 		}
                 
-                //file_put_contents('/home/pprelati/domains/kado.lt/public_html/aaaaa1.html', 'rz picture:::' . json_encode($this->data) . "\n", FILE_APPEND);
+                //file_put_contents('/home/pprelati/domains/kado.lt/public_html/--sys-lib-picture.html', 'rz picture:::' . json_encode($this->data) . "\n", FILE_APPEND);
                 
 		return $this->data;
 	}

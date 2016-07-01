@@ -185,6 +185,7 @@ class ControllerApiCart extends Controller {
                         foreach ($pictures as $picture) {
 				$json['pictures'][] = array(
                                         //'key'             => $key,
+                                        'order_id' => $picture['order_id'],
                                         'order_product_id' => $picture['order_product_id'],
                                         'product_id' => $picture['product_id'],
                                         'time' => $picture['time'],
@@ -210,7 +211,7 @@ class ControllerApiCart extends Controller {
 				);
                             
                         }
-                        //file_put_contents('/home/pprelati/domains/kado.lt/public_html/--aaaa.html',  
+                        //file_put_contents('/home/pprelati/domains/kado.lt/public_html/--cat-cont-api-cart.html',  
                         //    json_encode($pictures) . "\n", FILE_APPEND);
                         
                         //rz end

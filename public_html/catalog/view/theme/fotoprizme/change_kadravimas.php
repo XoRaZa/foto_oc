@@ -16,6 +16,5 @@ function changeOneKadravimas($con, $name, $kadravimas) {
             )
         );
     } catch (Exception $e) {
-        l($e->getMessage());
     }
 }
