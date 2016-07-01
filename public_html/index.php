@@ -220,6 +220,9 @@ $registry->set('length', new Length($registry));
 // Cart
 $registry->set('cart', new Cart($registry));
 
+//RZ Picture
+$registry->set('picture', new Picture($registry));
+
 // Encryption
 $registry->set('encryption', new Encryption($config->get('config_encryption')));
 

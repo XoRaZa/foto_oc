@@ -131,7 +131,7 @@ class ControllerApiCart extends Controller {
 			if (!$this->cart->hasStock() && (!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning'))) {
 				$json['error']['stock'] = $this->language->get('error_stock');
 			}
-
+                        
 			// Products
 			$json['products'] = array();
 
@@ -176,6 +176,45 @@ class ControllerApiCart extends Controller {
 					'reward'     => $product['reward']
 				);
 			}
+                        
+                        //rz Pictures
+                        $json['pictures'] = array();
+                        
+                        $pictures = $this->picture->getPictures();
+                        
+                        foreach ($pictures as $picture) {
+				$json['pictures'][] = array(
+                                        //'key'             => $key,
+                                        'order_product_id' => $picture['order_product_id'],
+                                        'product_id' => $picture['product_id'],
+                                        'time' => $picture['time'],
+                                        'original_name' => $picture['original_name'],
+                                        'name' => $picture['name'],
+                                        'type' => $picture['type'],
+                                        'ext' => $picture['ext'],
+                                        'tmp_name' => $picture['tmp_name'],
+                                        'file_size' => $picture['file_size'],
+                                        'path' => $picture['path'],
+                                        'path_thumb' => $picture['path_thumb'],
+                                        'url' => $picture['url'],
+                                        'url_thumb' => $picture['url_thumb'],
+                                        'user_id' => $picture['user_id'],
+                                        'photo_size' => $picture['photo_size'],
+                                        'pavirsius' => $picture['pavirsius'],
+                                        'kadravimas' => $picture['kadravimas'],
+
+                                        //'' => $picture[''],
+
+                                        'quantity' => $picture['quantity']
+                                    
+				);
+                            
+                        }
+                        //file_put_contents('/home/pprelati/domains/kado.lt/public_html/--aaaa.html',  
+                        //    json_encode($pictures) . "\n", FILE_APPEND);
+                        
+                        //rz end
+                        
 
 			// Voucher
 			$json['vouchers'] = array();
@@ -238,7 +277,8 @@ class ControllerApiCart extends Controller {
 				);
 			}
 		}
-
+                
+                file_put_contents('/home/pprelati/domains/kado.lt/public_html/--cat-cont-api-cart.html', json_encode($json) . "\n", FILE_APPEND);
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}

@@ -955,6 +955,8 @@ $('#order a[data-toggle=\'tab\']').on('click', function(e) {
 			
 // Add all products to the cart using the api
 $('#button-refresh').on('click', function() {
+        //RZ
+        alert('index.php?route=sale/order/api&token=<?php echo $token; ?>&api=api/cart/products&store_id=' + $('select[name=\'store_id\'] option:selected').val());
 	$.ajax({
 		url: 'index.php?route=sale/order/api&token=<?php echo $token; ?>&api=api/cart/products&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
 		dataType: 'json',
@@ -988,6 +990,13 @@ $('#button-refresh').on('click', function() {
 					
 					html += '<tr>';
 					html += '  <td class="text-left">' + product['name'] + ' ' + (!product['stock'] ? '<span class="text-danger">***</span>' : '') + '<br />';
+                                        //RZ start pictures thumbs
+                                        for (j = 0; j < json['pictures'].length; j++) {
+                                            picture = json['pictures'][j];
+                                            html += '  <img src="' + picture['url_thumb'] + '" alt="Testine nuotruka" height="42" width="42">'
+                                            html += '  <a href="' + picture['url']+ '">Kiekis : ' + picture['quantity'] + ' vnt.</a><br>'
+                                        }
+                                        //RZ end
 					html += '  <input type="hidden" name="product[' + i + '][product_id]" value="' + product['product_id'] + '" />';
 					
 					if (product['option']) {
@@ -1039,15 +1048,15 @@ $('#button-refresh').on('click', function() {
 					
 					html += '<tr>';
 					html += '  <td class="text-left">' + voucher['description'];
-                    html += '    <input type="hidden" name="voucher[' + i + '][code]" value="' + voucher['code'] + '" />';
+                                        html += '    <input type="hidden" name="voucher[' + i + '][code]" value="' + voucher['code'] + '" />';
 					html += '    <input type="hidden" name="voucher[' + i + '][description]" value="' + voucher['description'] + '" />';
-                    html += '    <input type="hidden" name="voucher[' + i + '][from_name]" value="' + voucher['from_name'] + '" />';
-                    html += '    <input type="hidden" name="voucher[' + i + '][from_email]" value="' + voucher['from_email'] + '" />';
-                    html += '    <input type="hidden" name="voucher[' + i + '][to_name]" value="' + voucher['to_name'] + '" />';
-                    html += '    <input type="hidden" name="voucher[' + i + '][to_email]" value="' + voucher['to_email'] + '" />';
-                    html += '    <input type="hidden" name="voucher[' + i + '][voucher_theme_id]" value="' + voucher['voucher_theme_id'] + '" />';
-                    html += '    <input type="hidden" name="voucher[' + i + '][message]" value="' + voucher['message'] + '" />';
-                    html += '    <input type="hidden" name="voucher[' + i + '][amount]" value="' + voucher['amount'] + '" />';
+                                        html += '    <input type="hidden" name="voucher[' + i + '][from_name]" value="' + voucher['from_name'] + '" />';
+                                        html += '    <input type="hidden" name="voucher[' + i + '][from_email]" value="' + voucher['from_email'] + '" />';
+                                        html += '    <input type="hidden" name="voucher[' + i + '][to_name]" value="' + voucher['to_name'] + '" />';
+                                        html += '    <input type="hidden" name="voucher[' + i + '][to_email]" value="' + voucher['to_email'] + '" />';
+                                        html += '    <input type="hidden" name="voucher[' + i + '][voucher_theme_id]" value="' + voucher['voucher_theme_id'] + '" />';
+                                        html += '    <input type="hidden" name="voucher[' + i + '][message]" value="' + voucher['message'] + '" />';
+                                        html += '    <input type="hidden" name="voucher[' + i + '][amount]" value="' + voucher['amount'] + '" />';
 					html += '  </td>';
 					html += '  <td class="text-left"></td>';
 					html += '  <td class="text-right">1</td>';

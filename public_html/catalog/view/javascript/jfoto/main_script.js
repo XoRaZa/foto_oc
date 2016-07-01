@@ -2,26 +2,36 @@
 // Initiate photos uploading script
 // Atsidarius/iskvietus(programiskai) pagrindini svetaines puslapi ukraunamas
 // sis skriptas, sukuria nauja vartotoja + preke
+
+//funkcija skirta alertu isvedimui testavimo metu
+function alert_t(mess) {
+    testing = false;
+    if (testing){
+        alert(mess);
+    }
+}
 $(function() {
     //RZ
     var userId = $("#userId").val();
     var parsed = '';
+    //sukuriamas naujas tuscias orderis su viena prreke(product_id=1 ir quantity=0
     function setNewUserId() {
         $.ajax({
             async: false,
             method: "POST",
+            data: { name: "John", location: "Boston" },
             url: cfg.domain + '/catalog/view/theme/fotoprizme/new_user_id.php'
         })
             .done(function(data, textStatus, jqXHR) {
                 parsed = $.parseJSON(data);
                 $('#userId').val(parsed.userId);
-                alert(textStatus + " . New order and userId created. userId = " + parsed.userId);//RZ
+                alert_t(textStatus + " . New order and userId created. userId = " + parsed.userId);//RZ
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 alert( "setNewUserId() function error : "  + textStatus + '=' + errorThrown);
             })
             .always(function(jqXHR, textStatus, errorThrown) {
-                alert( "always complete -> " + textStatus);//RZ
+                alert_t( "always complete -> " + textStatus);//RZ
             });
             
     }
@@ -59,11 +69,11 @@ $(function() {
         $(rightDiv).height(pageHeight);
     }
     
-    alert('setNewUserId() function will by called. Now userId = ' + userId);
+    alert_t('setNewUserId() function will by called. Now userId = ' + userId);
     setNewUserId();
     alert('After call setNewUserId(). New userId = ' + $("#userId").val());
-    alert('Last executed sql = ' + parsed.sql_str);
-    alert(parsed.error_str);
+    alert_t('Last executed sql = ' + parsed.sql_str);
+    alert_t(parsed.error_str);
 
     // Now that the DOM is fully loaded, 
     // create the dropzone, and setup the event listeners
@@ -74,7 +84,7 @@ $(function() {
                 addRemoveLinks: true,
                 acceptedFiles: 'image/*',
                 dictRemoveFile: 'Išmesti',
-                dictInvalidFileType: 'Tai ne fotografija',
+                dictInvalidFileType: 'Tai ne foto',
                 dictFileTooBig: 'Failas per didelis',
                 dictCancelUpload: 'Nutraukti siuntimą',
                 dictCancelUploadConfirmation: 'Tikrai nutraukiti siuntimą?',
@@ -90,19 +100,19 @@ $(function() {
         // TODO: figure this out
         leftRightBg();
         $('#progresas').show();
-        alert('addedfile');//RZ
+        alert_t('addedfile');//RZ
     });
 
     myDropzone.on("sending", function(file, xhr, formData) {
         var userId = $("#userId").val();
         formData.append('userId', userId);
-        alert('sending');//RZ
+        alert_t('sending');//RZ
     });
     
     myDropzone.on("success", function(file, data) {
         console.log(data);
-        //RZ cia reikia prideti i order_product
-        alert('success uploaded file');//RZ
+        //RZ cia reikia kazkaip prideti i order_product
+        alert_t('success uploaded file');//RZ
     });
     
     myDropzone.on("removedfile", function(file) {
@@ -124,7 +134,7 @@ $(function() {
                 console.log(data);
             });
         console.log(file);
-        alert('removedfile');//RZ
+        alert_t('removedfile');//RZ
     });
 
     // Load next step after uploading.
@@ -140,7 +150,7 @@ $(function() {
         });
 
         loadAfterUpload();
-        alert('po nuotrauku sukelimo');//RZ
+        alert_t('po nuotrauku sukelimo');//RZ
     });
 
     leftRightBg();
@@ -183,6 +193,7 @@ $(function() {
                 break;
         }
     });
+    
     $(forward).click(function() {
         var currentProgress = $('#progresas-dabar');
         var currentProgressVal = $(currentProgress).text();
@@ -263,7 +274,7 @@ $(function() {
         offset: -100
     });
 
-////////// Paslaugos modals
+    ////////// Paslaugos modals
     var modals = [
         "nuotrauku-spausdinimas",
         "skaitmenine-spauda",

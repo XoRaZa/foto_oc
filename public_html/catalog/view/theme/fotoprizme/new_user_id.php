@@ -2,12 +2,33 @@
 //ikvieciamas viena karta is main_script.js
 require_once('connect.php');
 
+// Function to get the client IP address //RZ iskelti i include'a
+function get_client_ip() {
+    $ipaddress = '';
+    if (getenv('HTTP_CLIENT_IP'))
+        $ipaddress = getenv('HTTP_CLIENT_IP');
+    else if(getenv('HTTP_X_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+    else if(getenv('HTTP_X_FORWARDED'))
+        $ipaddress = getenv('HTTP_X_FORWARDED');
+    else if(getenv('HTTP_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_FORWARDED_FOR');
+    else if(getenv('HTTP_FORWARDED'))
+       $ipaddress = getenv('HTTP_FORWARDED');
+    else if(getenv('REMOTE_ADDR'))
+        $ipaddress = getenv('REMOTE_ADDR');
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+};
+
+$error_str = 'error_str';
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * order lenteleje laukas custom_field opencartu apdirbamas kaip serializuotas
  * t.y. siame lauke visi duomenys turi buti serializuoti.
  ******************************************************************************/
-$error_str = 'error_str';
-$userId = serialize(md5(uniqid('', TRUE))); 
+$userId = serialize(md5(uniqid('', TRUE)));
+$userIP = get_client_ip();
 $currentTime = time();
 $expireDate = $currentTime+60*60*24*365;
 $cookieName = 'userId';
@@ -15,22 +36,28 @@ $cookieNameSet = $cookieName . 'Set';
 setcookie($cookieName, $userId, $expireDate, '/');
 setcookie($cookieNameSet, $currentTime, $expireDate, '/');
 setcookie('photo-count', 1, time()+60*60*24*365, '/');
-$data = array($cookieName => $userId, $cookieNameSet => $currentTime, $error_str => '', 'sql_str' => 'init');
+$data = array($cookieName => $userId, $cookieNameSet => $currentTime, $error_str => '', 'sql_str' => 'empty', 'userIP' => $userIP);
+
+//blokuojami IP address'ai
+require_once('google_ip_denied.php');
+foreach ($blocked_google_ip as $value) {
+    if ($value == $userIP ){
+        exit();
+    };
+} ;
 
 //$this->load->model('fotoprisme/fotoorder');
 //$this->model_fotoprisme_fotoorder->createNewOrder($userId);
 
-
-function createNewOrder($con, $userId) {
+function createNewOrder($con, $userId, $userIP) {
     global $data;
     try
     {
-        $sql_str = "INSERT INTO `oc_order` ( `custom_field`, `order_status_id`, `date_added`, `date_modified`) "
-            . "VALUES ('". $userId ."', 1, '".date('Y-m-d h:i:s', time())."','".date('Y-m-d h:i:s', time())."')";
+        $sql_str = "INSERT INTO `oc_order` ( `custom_field`, `order_status_id`, `date_added`, `date_modified`, `ip`) "
+            . "VALUES ('". $userId ."', 1, '".date('Y-m-d h:i:s', time())."','".date('Y-m-d h:i:s', time())."', '". $userIP ."' )";
         $data['sql_str'] = $sql_str;
         $stmt = $con->prepare($sql_str);
         $stmt->execute();
-        
         /*
         $sql_str = 'INSERT INTO `oc_order` ( `custom_field`, `order_status_id`, `date_added`, `date_modified`) ' 
                              . 'VALUES ( :user_id,       :order_status_id,  :date_added,  :date_modified)';
@@ -52,7 +79,7 @@ function createNewOrder($con, $userId) {
         foreach ($rows as $row) {
             $orderId = $row['order_id'];
         }
-        $data['error_str'] = $orderId;
+        $data[$error_str] = $orderId;
         
          
     }
@@ -95,6 +122,8 @@ function createNewOrder($con, $userId) {
 };
 
 
-createNewOrder($con, $userId);
+createNewOrder($con, $userId, $userIP);
 
 echo json_encode($data);
+
+return;

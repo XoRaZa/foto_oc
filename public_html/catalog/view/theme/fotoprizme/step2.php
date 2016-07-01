@@ -49,7 +49,7 @@ $results = $stmt->fetchAll();
                     ?>
                     <div class="select-style">
                         <select name="dydis" class="dydis">
-                            <option value="" selected="selected" hidden="hidden"></option>
+                            <!--<option value="" selected="selected" hidden="hidden"></option>-->
                             <?php foreach($sizes as $size): ?>
                                 <?php
                                 $savedSize = isset($saved[$result['name']]['size']) ? $saved[$result['name']]['size'] : '';
@@ -68,7 +68,7 @@ $results = $stmt->fetchAll();
                         );
                         ?>
                         <select name="pavirsius" class="pavirsius">
-                            <option value="" selected="selected" hidden="hidden"></option>
+                            <!--<option value="" selected="selected" hidden="hidden"></option>-->
                             <?php foreach($pavirsiai as $val => $name): ?>
                                 <option value="<?php echo $val; ?>"><?php echo $name; ?></option>
                             <?php endforeach; ?>
@@ -84,7 +84,7 @@ $results = $stmt->fetchAll();
                         );
                         ?>
                         <select name="kadravimas" class="kadravimas">
-                            <option value="" selected="selected" hidden="hidden"></option>
+                            <!--<option value="" selected="selected" hidden="hidden"></option>-->
                             <?php foreach($kadravimas as $val => $name): ?>
                                 <option value="<?php echo $val; ?>"><?php echo $name; ?></option>
                             <?php endforeach; ?>
@@ -108,8 +108,7 @@ $results = $stmt->fetchAll();
         </div>
         <div class="select-style">
             <select name="dydziai" class="dydziai">
-                <option value="" selected="selected" hidden="hidden"></option>
-                <option value="9x13">9x13</option>
+                <option value="9x13" selected>9x13</option>
                 <option value="10x15">10x15</option>
                 <option value="13x18">13x18</option>
                 <option value="15x21">15x21</option>
@@ -118,6 +117,20 @@ $results = $stmt->fetchAll();
                 <option value="21x30">21x30</option>
             </select>
         </div>
+        <!--
+        <div class="select-style" hidden visibility="hidden" display="none">
+            <select name="pavirsius" class="pavirsius">
+                <option value="1" >Blizgus</option>
+                <option value="2">Matinis</option>
+            </select>
+        </div>
+        <div class="select-style" hidden>
+            <select name="kadravimas" class="kadravimas">
+                <option value="1" >Su kadravimu</option>
+                <option value="2">Be kadravimo</option>
+            </select>
+        </div>
+        -->
         <br/>
         <button id="pazymeti" class="btn btn-default">Pažymėti visas nuotraukas</button>
         <button id="atzymeti" class="btn btn-default">Atžymėti visas nuotraukas</button>
@@ -131,4 +144,4 @@ $results = $stmt->fetchAll();
 <script type="text/javascript" src="/catalog/view/javascript/jfoto/change_pavirsius.js"></script>
 <script type="text/javascript" src="/catalog/view/javascript/jfoto/change_kadravimas.js"></script>
 <script type="text/javascript" src="/catalog/view/javascript/jfoto/change_quantity.js"></script>
-<script type="text/javascript" src="/catalog/view/javascript/jfoto/re.js"></script>
+<script type="text/javascript" src="/catalog/view/javascript/jfoto/recalculate.js"></script>

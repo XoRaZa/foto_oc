@@ -1,5 +1,5 @@
 <?php
-require('smart_resize_image.function.php');
+require('smart_resize_image.php');
 require_once('connect.php');
 
 // 'pictures' refers to your file input name attribute
@@ -122,6 +122,7 @@ if(move_uploaded_file($filetmp_name, $path)) {
     $success = true;
 
     smart_resize_image($path, null, 120, 0, true, $path_thumb, $uploaded_images_thumbs_directory, false, false, 80);
+    
     save_data($con, $filename, $new_filename, $filetype, $ext, $filetmp_name, $filesize, $path, $path_thumb, $url, $url_thumb, $userId);
 
 } else {
@@ -149,7 +150,7 @@ if ($success === true) {
 
 // return a json encoded response for plugin to process successfully
 echo json_encode($output);
-
+//idejimas i picture faila
 function save_data($con, $filename, $new_filename, $filetype, $ext, $filetmp_name, $filesize, $path, $path_thumb, $url, $url_thumb, $userId) {
 //    try {
         $stmt = $con->prepare('INSERT INTO picture (original_name, name, type, ext, tmp_name, file_size, path, path_thumb, url, url_thumb, user_id) VALUES (:original_name, :name, :type, :ext, :tmp_name, :file_size, :path, :path_thumb, :url, :url_thumb, :user_id)');

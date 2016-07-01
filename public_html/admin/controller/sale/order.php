@@ -2198,15 +2198,24 @@ class ControllerSaleOrder extends Controller {
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 				curl_setopt($curl, CURLOPT_URL, $url . 'index.php?route=' . $this->request->get['api'] . ($url_data ? '&' . http_build_query($url_data) : ''));
 
+                                $aa = '<br>curl_setopt url<br>' . $url . 'index.php?route=' . $this->request->get['api'] . ($url_data ? '&' . http_build_query($url_data) : '')  . '<br>';
+                                
 				if ($this->request->post) {
 					curl_setopt($curl, CURLOPT_POST, true);
 					curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->request->post));
 				}
-
+                                
+                                $aa .= '<br>http_build_query<br>' . http_build_query($this->request->post);
+                                
 				curl_setopt($curl, CURLOPT_COOKIE, session_name() . '=' . $this->session->data['cookie'] . ';');
 
+                                $aa .= '<br>cookie<br>' . session_name() . '=' . $this->session->data['cookie'] . ';';
+                                        
 				$json = curl_exec($curl);
 
+                                $aa .=  '<br>json<br>' . $json . "\n";
+                                file_put_contents('/home/pprelati/domains/kado.lt/public_html/--adm-cont-sale-order.html', $aa . "\n", FILE_APPEND);
+                                
 				curl_close($curl);
 			}
 		} else {
