@@ -2,26 +2,6 @@
 //ikvieciamas viena karta is main_script.js
 require_once('connect.php');
 
-// Function to get the client IP address //RZ iskelti i include'a
-function get_client_ip() {
-    $ipaddress = '';
-    if (    getenv('HTTP_CLIENT_IP'))
-        $ipaddress = getenv('HTTP_CLIENT_IP');
-    else if(getenv('HTTP_X_FORWARDED_FOR'))
-        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-    else if(getenv('HTTP_X_FORWARDED'))
-        $ipaddress = getenv('HTTP_X_FORWARDED');
-    else if(getenv('HTTP_FORWARDED_FOR'))
-        $ipaddress = getenv('HTTP_FORWARDED_FOR');
-    else if(getenv('HTTP_FORWARDED'))
-        $ipaddress = getenv('HTTP_FORWARDED');
-    else if(getenv('REMOTE_ADDR'))
-        $ipaddress = getenv('REMOTE_ADDR');
-    else
-        $ipaddress = 'UNKNOWN';
-    return $ipaddress;
-};
-
 $error_str = 'error_str';
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -29,7 +9,6 @@ $error_str = 'error_str';
  * t.y. siame lauke visi duomenys turi buti serializuoti.
  ******************************************************************************/
 $userId = serialize(md5(uniqid('', TRUE)));
-$userIP = get_client_ip();
 $currentTime = time();
 $expireDate = $currentTime+60*60*24*365;
 $cookieName = 'userId';
@@ -39,14 +18,7 @@ setcookie($cookieNameSet, $currentTime, $expireDate, '/');
 setcookie('photo-count', 1, time()+60*60*24*365, '/');
 $data = array($cookieName => $userId, $cookieNameSet => $currentTime, $error_str => '', 'sql_str' => 'empty', 'userIP' => $userIP);
 
-//blokuojami IP address'ai
-require_once('google_ip_denied.php');
-foreach ($blocked_google_ip as $value) {
-    if ($value == $userIP ){
-        exit();
-    };
-} ;
-
+//TODO:2016-07-02:rimas:reikia kazkaip realizuoti
 //??$this->load->model('fotoprisme/fotoorder');
 //??$this->model_fotoprisme_fotoorder->createNewOrder($userId);
 
