@@ -22,7 +22,7 @@
                               $output_dir         = '',
                               $delete_original    = true, 
                               $use_linux_commands = false,
-  							  $quality = 100
+                              $quality = 100
   		 ) {
       
     if ( $height <= 0 && $width <= 0 ) return false;

@@ -955,11 +955,10 @@ $('#order a[data-toggle=\'tab\']').on('click', function(e) {
 			
 // Add all products to the cart using the api
 $('#button-refresh').on('click', function() {
-        //RZ
-        alert('index.php?route=sale/order/api&token=<?php echo $token; ?>&api=api/cart/products&store_id=' + $('select[name=\'store_id\'] option:selected').val());
 	$.ajax({
 		url: 'index.php?route=sale/order/api&token=<?php echo $token; ?>&api=api/cart/products&store_id=' + $('select[name=\'store_id\'] option:selected').val(),
 		dataType: 'json',
+                data: {order_id : $('input[name=\'order_id\']').val()},
 		success: function(json) {
 			$('.alert-danger, .text-danger').remove();
 			
@@ -991,10 +990,13 @@ $('#button-refresh').on('click', function() {
 					html += '<tr>';
 					html += '  <td class="text-left">' + product['name'] + ' ' + (!product['stock'] ? '<span class="text-danger">***</span>' : '') + '<br />';
                                         //RZ start pictures thumbs
-                                        for (j = 0; j < json['pictures'].length; j++) {
-                                            picture = json['pictures'][j];
-                                            html += '  <img src="' + picture['url_thumb'] + '" alt="Testine nuotruka" height="42" width="42">'
-                                            html += '  <a href="' + picture['url']+ '">Kiekis : ' + picture['quantity'] + ' vnt.</a><br>'
+                                        for (j = 0; j < json['pictures']['product_pictures'].length; j++) {
+                                            picture = json['pictures']['product_pictures'][j];
+                                            if (picture['product_id'] == product['product_id'] ){
+                                                html += '  <a href="' + picture['url'] + '"><img src="';
+                                                html += picture['url_thumb'] + '" alt="Testine nuotruka" height="42" width="42">Kiekis : ';
+                                                html += picture['quantity'] + ' vnt.</a><br>';
+                                            }
                                         }
                                         //RZ end
 					html += '  <input type="hidden" name="product[' + i + '][product_id]" value="' + product['product_id'] + '" />';

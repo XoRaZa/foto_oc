@@ -182,41 +182,38 @@ class ControllerApiCart extends Controller {
                         
                         $pictures = $this->picture->getPictures();
                         
-                        foreach ($pictures as $picture) {
-				$json['pictures'][] = array(
+                        foreach ($pictures as $product_pictures) {
+                            foreach ($product_pictures as $picture) {
+				$json['pictures']['product_pictures'][] = array(
                                         //'key'             => $key,
-                                        'order_id' => $picture['order_id'],
-                                        'order_product_id' => $picture['order_product_id'],
-                                        'product_id' => $picture['product_id'],
-                                        'time' => $picture['time'],
-                                        'original_name' => $picture['original_name'],
-                                        'name' => $picture['name'],
-                                        'type' => $picture['type'],
-                                        'ext' => $picture['ext'],
-                                        'tmp_name' => $picture['tmp_name'],
-                                        'file_size' => $picture['file_size'],
-                                        'path' => $picture['path'],
-                                        'path_thumb' => $picture['path_thumb'],
-                                        'url' => $picture['url'],
-                                        'url_thumb' => $picture['url_thumb'],
-                                        'user_id' => $picture['user_id'],
-                                        'photo_size' => $picture['photo_size'],
-                                        'pavirsius' => $picture['pavirsius'],
-                                        'kadravimas' => $picture['kadravimas'],
+                                        'order_id'          => $picture['order_id'],
+                                        'order_product_id'  => $picture['order_product_id'],
+                                        'product_id'        => $picture['product_id'],
+                                        'time'              => $picture['time'],
+                                        'original_name'     => $picture['original_name'],
+                                        'name'              => $picture['name'],
+                                        'type'              => $picture['type'],
+                                        'ext'               => $picture['ext'],
+                                        'tmp_name'          => $picture['tmp_name'],
+                                        'file_size'         => $picture['file_size'],
+                                        'path'              => $picture['path'],
+                                        'path_thumb'        => $picture['path_thumb'],
+                                        'url'               => $picture['url'],
+                                        'url_thumb'         => $picture['url_thumb'],
+                                        'user_id'           => $picture['user_id'],
+                                        'photo_size'        => $picture['photo_size'],
+                                        'pavirsius'         => $picture['pavirsius'],
+                                        'kadravimas'        => $picture['kadravimas'],
 
                                         //'' => $picture[''],
 
-                                        'quantity' => $picture['quantity']
+                                        'quantity'          => $picture['quantity']
                                     
 				);
-                            
+                            }
                         }
-                        //file_put_contents('/home/pprelati/domains/kado.lt/public_html/--cat-cont-api-cart.html',  
-                        //    json_encode($pictures) . "\n", FILE_APPEND);
-                        
                         //rz end
                         
-
 			// Voucher
 			$json['vouchers'] = array();
 
@@ -279,7 +276,7 @@ class ControllerApiCart extends Controller {
 			}
 		}
                 
-                file_put_contents('/home/pprelati/domains/kado.lt/public_html/--cat-cont-api-cart.html', json_encode($json) . "\n", FILE_APPEND);
+                //file_put_contents(DIR_TMP . '--cat-cont-api-cart.html', json_encode($json) . "\n", FILE_APPEND);
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}

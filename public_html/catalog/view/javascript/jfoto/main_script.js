@@ -35,9 +35,7 @@ $(function() {
             });
             
     }
-
     function loadAfterUpload() {
-       
         $('#add-photos').hide();
         $('#progresas-dabar').html('2');
         $('#rinktis-parametrus').show();
@@ -52,9 +50,8 @@ $(function() {
         var toLoad = cfg.domain + '/catalog/view/theme/fotoprizme/step2.php';
         var toLoadTo = $('#rinktis-parametrus');
         $(toLoadTo).load(toLoad);
-
     }
-    
+
     function leftRightBg() {
         var pageHeight = $(document).height();
         var pageWidth = $(document).width();

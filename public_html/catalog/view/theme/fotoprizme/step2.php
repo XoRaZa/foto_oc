@@ -3,19 +3,12 @@
 <?php
 
 require_once('connect.php');
-//phpinfo();
 $userId = $_COOKIE['userId'];
 
-$stmt = $con->prepare('SELECT * FROM picture WHERE user_id = :user_id');
-$stmt->execute(
-    array(
-        'user_id' => $userId
-    )
-);
-$results = $stmt->fetchAll();
+$results = $con->query("SELECT * FROM picture WHERE user_id = '$userId'");
 //var_dump($results);
-?>
 
+?>
     <table>
         <tr class="tr-pavadinimai">
             <td>Nuotrauka</td>
@@ -26,7 +19,8 @@ $results = $stmt->fetchAll();
             <td>Kiekis</td>
             <td>Pašalinti</td>
         </tr>
-        <?php foreach($results as $result): ?>
+        <?php 
+            foreach($results as $result): ?>
             <tr id="<?php echo $result['name'] ?>">
                 <td class="td-nuotrauka">
                     <img src="<?php echo $result['url_thumb']; ?>" alt="<?php echo $result['name']; ?>">
@@ -36,26 +30,27 @@ $results = $stmt->fetchAll();
                 </td>
                 <td class="td-dydis">
                     <?php
-                    $sizes = array(
-                        '9x13',
-                        '10x15',
-                        '13x18',
-                        '15x21',
-                        '15x23',
-                        '21x25',
-                        '21x30'
-                    );
+                        $sizes = array();
+                        $sql_str = 
+                                "SELECT model "
+                                ."FROM oc_product pr, oc_product_to_category cat "
+                                ."WHERE pr.product_id = cat.product_id AND cat.category_id = 59";
+                        
+                        foreach ($con->query($sql_str) as $row) {
+                            $sizes[] = substr($row['model'], -5);
+                        }
+                    
                     $saved = isset($_COOKIE['sizeQ']) ? json_decode($_COOKIE['sizeQ'], TRUE) : '';
                     ?>
                     <div class="select-style">
                         <select name="dydis" class="dydis">
                             <!--<option value="" selected="selected" hidden="hidden"></option>-->
-                            <?php foreach($sizes as $size): ?>
+                            <?php foreach($sizes as $size){ ?>
                                 <?php
                                 $savedSize = isset($saved[$result['name']]['size']) ? $saved[$result['name']]['size'] : '';
                                 ?>
                             <option value="<?php echo $size ?>" <?php if($savedSize == $size) { echo 'selected="selected"'; } ?>><?php echo $size ?></option>
-                            <?php endforeach; ?>
+                            <?php }; ?>
                         </select>
                     </div>
                 </td>
@@ -79,8 +74,8 @@ $results = $stmt->fetchAll();
                     <div class="select-style">
                         <?php
                         $kadravimas = array(
-                            'su-kadravimu' => 'Su kadravimu',
-                            'be-kadravimo' => 'Be kadravimo'
+                            'be-kadravimo' => 'Pilnas',
+                            'su-kadravimu' => 'Su kadravimu'
                         );
                         ?>
                         <select name="kadravimas" class="kadravimas">
@@ -108,13 +103,9 @@ $results = $stmt->fetchAll();
         </div>
         <div class="select-style">
             <select name="dydziai" class="dydziai">
-                <option value="9x13" selected>9x13</option>
-                <option value="10x15">10x15</option>
-                <option value="13x18">13x18</option>
-                <option value="15x21">15x21</option>
-                <option value="15x23">15x23</option>
-                <option value="21x25">21x25</option>
-                <option value="21x30">21x30</option>
+                <?php foreach($sizes as $size){ ?>
+                    <option value="<?php echo $size ?>" ><?php echo $size ?></option>
+                <?php }; ?>
             </select>
         </div>
         <!--

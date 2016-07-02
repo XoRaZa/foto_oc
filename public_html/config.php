@@ -14,13 +14,15 @@ define('HTTPS_IMAGE', HTTP_IMAGE);
 define('HTTPS_ADMIN', HTTP_ADMIN);
 
 // DIR
-define('DIR_CATALOG', '/home/pprelati/domains/kado.lt/public_html/catalog/');
+define('DIR_ROOT', '/home/pprelati/domains/kado.lt/public_html/');
+define('DIR_TMP', DIR_ROOT.'_tmp/');
+define('DIR_CATALOG', DIR_ROOT.'catalog/');
 define('DIR_APPLICATION', DIR_CATALOG);
-define('DIR_SYSTEM', '/home/pprelati/domains/kado.lt/public_html/system/');
+define('DIR_SYSTEM', DIR_ROOT.'system/');
 define('DIR_LANGUAGE', DIR_APPLICATION.'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION.'view/theme/');
 define('DIR_CONFIG', DIR_SYSTEM.'config/');
-define('DIR_IMAGE', '/home/pprelati/domains/kado.lt/public_html/image/');
+define('DIR_IMAGE', DIR_ROOT.'image/');
 define('DIR_CACHE', DIR_SYSTEM.'cache/');
 define('DIR_DOWNLOAD', DIR_SYSTEM.'download/');
 define('DIR_UPLOAD', DIR_SYSTEM.'upload/');

@@ -22,13 +22,6 @@ class Cart {
 			foreach ($this->session->data['cart'] as $key => $quantity) {
 				$product = unserialize(base64_decode($key));
 
-                                //RZ
-                                file_put_contents('/home/pprelati/domains/kado.lt/public_html/--sys-lib-cart.html', ''
-                                    .$key . "\n"
-                                    .base64_decode($key) . "\n" 
-                                    .unserialize(base64_decode($key)) . "\n"   
-                                    , FILE_APPEND);  
-
 				$product_id = $product['product_id'];
 
 				$stock = true;
@@ -49,10 +42,6 @@ class Cart {
 
 				$product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.date_available <= NOW() AND p.status = '1'");
 
-                        file_put_contents('/home/pprelati/domains/kado.lt/public_html/--sys-lib-cart.html', 
-                                "SELECT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.date_available <= NOW() AND p.status = '1'"
-                                . "\n", FILE_APPEND);                                
-                                
 				if ($product_query->num_rows) {
 					$option_price = 0;
 					$option_points = 0;
@@ -281,8 +270,6 @@ class Cart {
 				}
 			}
 		}
-                //rz
-                //file_put_contents('/home/pprelati/domains/kado.lt/public_html/--sys-lib-cart.html', json_encode($this->data) . "\n", FILE_APPEND);
 
 		return $this->data;
 	}

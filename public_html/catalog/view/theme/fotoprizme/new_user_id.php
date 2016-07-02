@@ -5,7 +5,7 @@ require_once('connect.php');
 // Function to get the client IP address //RZ iskelti i include'a
 function get_client_ip() {
     $ipaddress = '';
-    if (getenv('HTTP_CLIENT_IP'))
+    if (    getenv('HTTP_CLIENT_IP'))
         $ipaddress = getenv('HTTP_CLIENT_IP');
     else if(getenv('HTTP_X_FORWARDED_FOR'))
         $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
@@ -14,7 +14,7 @@ function get_client_ip() {
     else if(getenv('HTTP_FORWARDED_FOR'))
         $ipaddress = getenv('HTTP_FORWARDED_FOR');
     else if(getenv('HTTP_FORWARDED'))
-       $ipaddress = getenv('HTTP_FORWARDED');
+        $ipaddress = getenv('HTTP_FORWARDED');
     else if(getenv('REMOTE_ADDR'))
         $ipaddress = getenv('REMOTE_ADDR');
     else
@@ -23,6 +23,7 @@ function get_client_ip() {
 };
 
 $error_str = 'error_str';
+
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * order lenteleje laukas custom_field opencartu apdirbamas kaip serializuotas
  * t.y. siame lauke visi duomenys turi buti serializuoti.
@@ -46,8 +47,8 @@ foreach ($blocked_google_ip as $value) {
     };
 } ;
 
-//$this->load->model('fotoprisme/fotoorder');
-//$this->model_fotoprisme_fotoorder->createNewOrder($userId);
+//??$this->load->model('fotoprisme/fotoorder');
+//??$this->model_fotoprisme_fotoorder->createNewOrder($userId);
 
 function createNewOrder($con, $userId, $userIP) {
     global $data;

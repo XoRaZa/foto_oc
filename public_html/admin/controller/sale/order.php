@@ -2214,7 +2214,7 @@ class ControllerSaleOrder extends Controller {
 				$json = curl_exec($curl);
 
                                 $aa .=  '<br>json<br>' . $json . "\n";
-                                file_put_contents('/home/pprelati/domains/kado.lt/public_html/--adm-cont-sale-order.html', $aa . "\n", FILE_APPEND);
+                                //file_put_contents(DIR_TMP . '--adm-cont-sale-order.html', $aa . "\n", FILE_APPEND);
                                 
 				curl_close($curl);
 			}
