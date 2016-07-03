@@ -1,5 +1,7 @@
 <?php
-
+/* priklausomai nuo fografiju kiekio ir ju dydzioperskaiciuojamos kainos
+ * ir update'inamos lenteles order order_product (laukai total_price)
+ */
 require_once('connect.php');
 
 $userId = $_POST['userId'];
@@ -8,7 +10,34 @@ $pricing = $_POST['pricing'];
 
 $total = 0;
 
-foreach($pricing as $key => $val) {
+//RZ
+ob_start();
+echo "userid \n";
+var_dump($userId);
+echo "\npricing \n";
+var_dump($pricing);
+
+$discounts = array();
+$sql_str = "SELECT * FROM `oc_product_discount` ORDER BY `product_id`, `quantity`";
+$sql_str = "SELECT `product_id`, 1 as quantity , `price` FROM `" . DB_PREFIX . "product` "
+   . "UNION SELECT `product_id`,     `quantity`, `price` FROM `" . DB_PREFIX . "product_discount`"
+   . "ORDER BY `product_id`, `quantity`";
+echo "<pre>";
+foreach ($con->query($sql_str) as $row) {
+    $discounts[] = array("product_id" => $row['product_id'],"quantity" => $row['quantity'],"price" => $row['price']);
+    //print_r($row);
+}
+echo "discount masyvas \n";
+//foreach ($discounts as $key => $value)
+//{
+//    echo "$key = $value = ".implode(":", $value) ."\n";
+//}
+var_dump($discounts);
+file_put_contents(DIR_TMP . '--foto-reprice.html', ob_get_contents());
+ob_end_clean();
+//*/
+
+foreach($pricing as $val) {
 
     $valArray = explode('-', $val);
 
@@ -17,7 +46,16 @@ foreach($pricing as $key => $val) {
     $quantity = $valArray[1];
 
     $singlePrice = 0;
-
+  
+  
+  foreach($discounts as $raw) {
+    if($raw["product_id"] == $size){
+      if($quantity >= $raw["quantity"]){
+        $singlePrice = $raw["price"];
+      }
+    }
+  }
+/*
     switch($size) {
 
         case '9x13':
@@ -259,7 +297,7 @@ foreach($pricing as $key => $val) {
             break;
 
     }
-
+*/
     $total = $total + $singlePrice * $quantity;
 
 }

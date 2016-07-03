@@ -32,12 +32,12 @@ $results = $con->query("SELECT * FROM picture WHERE user_id = '$userId'");
                     <?php
                         $sizes = array();
                         $sql_str = 
-                                "SELECT model "
+                                "SELECT pr.product_id, model "
                                 ."FROM oc_product pr, oc_product_to_category cat "
                                 ."WHERE pr.product_id = cat.product_id AND cat.category_id = 59";
                         
                         foreach ($con->query($sql_str) as $row) {
-                            $sizes[] = substr($row['model'], -5);
+                            $sizes[] = array('product_id' => $row['product_id'], 'model' => substr($row['model'], -5));
                         }
                     
                     $saved = isset($_COOKIE['sizeQ']) ? json_decode($_COOKIE['sizeQ'], TRUE) : '';
@@ -49,7 +49,7 @@ $results = $con->query("SELECT * FROM picture WHERE user_id = '$userId'");
                                 <?php
                                 $savedSize = isset($saved[$result['name']]['size']) ? $saved[$result['name']]['size'] : '';
                                 ?>
-                            <option value="<?php echo $size ?>" <?php if($savedSize == $size) { echo 'selected="selected"'; } ?>><?php echo $size ?></option>
+                                <option value="<?php echo $size['product_id'] ?>" <?php if($savedSize == $size['model']) { echo ' selected'; } ?>><?php echo $size['model'] ?></option>
                             <?php }; ?>
                         </select>
                     </div>
@@ -104,7 +104,7 @@ $results = $con->query("SELECT * FROM picture WHERE user_id = '$userId'");
         <div class="select-style">
             <select name="dydziai" class="dydziai">
                 <?php foreach($sizes as $size){ ?>
-                    <option value="<?php echo $size ?>" ><?php echo $size ?></option>
+                    <option value="<?php echo $size['product_id'] ?>" ><?php echo $size['model'] ?></option>
                 <?php }; ?>
             </select>
         </div>
