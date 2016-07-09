@@ -3,11 +3,11 @@
 require_once('connect.php');
 if(!empty($_POST['name'])) {
     $name = $_POST['name'];
-    deleteFile($con, $name);
-    removeOne($con, $name);
+    deleteFile($conn, $name);
+    removeOne($conn, $name);
     //delete record from picture table
-    function removeOne($con, $name) {
-        $stmt = $con->prepare('DELETE FROM picture WHERE name = :name');
+    function removeOne($conn, $name) {
+        $stmt = $conn->prepare('DELETE FROM picture WHERE name = :name');
         $stmt->execute(
             array(
                 'name' => $name
@@ -15,8 +15,8 @@ if(!empty($_POST['name'])) {
         );
     }
     //delete file from server
-    function deleteFile($con, $name) {
-        $stmt = $con->prepare('SELECT path, path_thumb FROM picture WHERE name = :name');
+    function deleteFile($conn, $name) {
+        $stmt = $conn->prepare('SELECT path, path_thumb FROM picture WHERE name = :name');
         $stmt->execute(
             array(
                 'name' => $name
@@ -35,8 +35,8 @@ if(!empty($_POST['orNs'])) {
     $size = $_POST['orNs']['size'];
     $userId = $_POST['orNs']['userId'];
     try {
-        function removeOneO($con, $orN, $size, $userId) {
-            $stmt = $con->prepare('DELETE FROM picture WHERE original_name = :name AND file_size = :file_size AND user_id = :user_id');
+        function removeOneO($conn, $orN, $size, $userId) {
+            $stmt = $conn->prepare('DELETE FROM picture WHERE original_name = :name AND file_size = :file_size AND user_id = :user_id');
             $stmt->execute(
                 array(
                     'name' => $orN,
@@ -46,8 +46,8 @@ if(!empty($_POST['orNs'])) {
             );
         }
 
-        function deleteFileO($con, $orN, $size, $userId) {
-            $stmt = $con->prepare('SELECT path, path_thumb FROM picture WHERE original_name = :name AND file_size = :file_size AND user_id = :user_id');
+        function deleteFileO($conn, $orN, $size, $userId) {
+            $stmt = $conn->prepare('SELECT path, path_thumb FROM picture WHERE original_name = :name AND file_size = :file_size AND user_id = :user_id');
             $stmt->execute(
                 array(
                     'name' => $orN,
@@ -62,8 +62,8 @@ if(!empty($_POST['orNs'])) {
             unlink($path_thumb);
         }
 
-        deleteFileO($con, $orN, $size, $userId);
-        removeOneO($con, $orN, $size, $userId);
+        deleteFileO($conn, $orN, $size, $userId);
+        removeOneO($conn, $orN, $size, $userId);
 
         echo 'removed';
     } catch (Exception $e) {

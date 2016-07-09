@@ -2,13 +2,15 @@ $(document).ready(function() {
     var sizeSelect = $('.dydis');
     $(sizeSelect).change(function() {
         var name = $(this).parents('tr').attr('id');
-        var size = $(this).val();
+        var size = $(this).find("option:selected").text();
+        var product_id = $(this).val();
         $.ajax({
             method: "POST",
             url: cfg.domain + '/catalog/view/theme/fotoprizme/change_size.php',
             data: {
                 name: name,
-                size: size
+                size: size,
+                product_id: product_id
             }
         });
 
@@ -18,10 +20,13 @@ $(document).ready(function() {
         $('.dydis').each(function() {
             var n = $(this).parents('tr').attr('id');
             names.push(n);
+            
             var s = $(this).val();
             sizes.push(s);
+            
             var q = $(this).parents('tr').find('.kiekis').val();
             quantities.push(q);
+            
         });
         $.ajax({
             method: 'POST',
@@ -33,6 +38,7 @@ $(document).ready(function() {
             }
         })
     });
+    
     var sizeMultiSelect = $('.dydziai');
     $(sizeMultiSelect).change(function() {
         names = [];

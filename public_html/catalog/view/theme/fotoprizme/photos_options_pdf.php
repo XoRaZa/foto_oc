@@ -5,7 +5,7 @@ require_once('connect.php');
 
 $userId = $_GET['userid'];
 
-$stmt = $con->prepare('SELECT name, photo_size, quantity FROM picture WHERE user_id = :user_id');
+$stmt = $conn->prepare('SELECT name, photo_size, quantity FROM picture WHERE user_id = :user_id');
 $stmt->execute(array(
     'user_id' => $userId
 ));

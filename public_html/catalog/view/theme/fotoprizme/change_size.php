@@ -3,23 +3,24 @@ require_once('connect.php');
 $name = $_POST['name'];
 $names = $_POST['names'];
 $size = $_POST['size'];
+$product_id = $_POST['product_id'];
 if (!empty($name) && !empty($size)) {
     echo 'name';
-    changeOneSize($con, $name, $size);
+    changeOneSize($conn, $name, $size, $product_id);
 }
 if (!empty($names) && !empty($size)) {
     echo 'names';
-    changeSelectedSizes($con, $names, $size);
+    changeSelectedSizes($conn, $names, $size);
 }
-function changeOneSize($con, $name, $size)
+function changeOneSize($conn, $name, $size, $product_id)
 {
-    $stmt = $con->prepare('UPDATE picture SET photo_size = :photo_size WHERE name = :name');
-    $stmt->execute(array('photo_size' => $size, 'name' => $name));
+    $stmt = $conn->prepare('UPDATE picture SET photo_size = :photo_size, product_id = :product_id WHERE name = :name');
+    $stmt->execute(array('photo_size' => $size, 'name' => $name, 'product_id' => $product_id));
 }
 
-function changeSelectedSizes($con, $names, $size)
+function changeSelectedSizes($conn  , $names, $size)
 {
-    $stmt = $con->prepare('UPDATE picture SET photo_size = :photo_size WHERE name = :name');
+    $stmt = $conn->prepare('UPDATE picture SET photo_size = :photo_size WHERE name = :name');
     foreach ($names as $name) {
         $stmt->execute(array('photo_size' => $size, 'name' => $name));
     };

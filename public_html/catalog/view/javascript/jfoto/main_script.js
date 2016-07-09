@@ -1,40 +1,52 @@
 // Photo uploading
 // Initiate photos uploading script
 // Atsidarius/iskvietus(programiskai) pagrindini svetaines puslapi ukraunamas
-// sis skriptas, sukuria nauja vartotoja + preke
+// sis skriptas, sukuria nauja orderi + prekes
 
 //funkcija skirta alertu isvedimui testavimo metu
 function alert_t(mess) {
-    testing = false;
+    testing = true;
     if (testing){
         alert(mess);
     }
 }
 $(function() {
     //RZ
-    var userId = $("#userId").val();
+    //var userId           = $("#userId").val();
+    //var order_id         = $('#order_id').val();
+//    var order_product_id = $('#order_product_id').val();
+//    var product_id       = $('#product_id').val(); 
+//    var photo_size       = $('#photo_size').val();   
+//    var pavirsius        = $('#pavirsius').val();  
+//    var kadravimas       = $('#kadravimas').val();   
+//    var quantity         = $('#quantity').val();
+    
     var parsed = '';
+    
     //sukuriamas naujas tuscias orderis su viena prreke(product_id=1 ir quantity=0
     function setNewUserId() {
         $.ajax({
-            async: false,
+            async : false,
             method: "POST",
-            data: { name: "John", location: "Boston" },
+            //RZ kolkas nereikialinga
+            //bet galima panaudoti duomenu perdavimui i php (kaip $_POST kintamieji)
+            //data: { "name": "--name--", "location": "--location--" },
             url: cfg.domain + '/catalog/view/theme/fotoprizme/new_user_id.php'
-        })
+            })
             .done(function(data, textStatus, jqXHR) {
                 parsed = $.parseJSON(data);
                 $('#userId').val(parsed.userId);
-                alert_t(textStatus + " . New order and userId created. userId = " + parsed.userId);//RZ
+                $('#order_id').val(parsed.order_id);
+                alert_t(textStatus + " . New order and userId created. userId = " + parsed.userId + "  order_id = " + parsed.order_id);//RZ
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
-                alert( "setNewUserId() function error : "  + textStatus + '=' + errorThrown);
+                alert( "setNewUserId() function error = "  + textStatus + '=' + errorThrown);
             })
             .always(function(jqXHR, textStatus, errorThrown) {
-                alert_t( "always complete -> " + textStatus);//RZ
+                //alert_t( "always complete -> " + textStatus);//RZ
             });
-            
     }
+    //RZ ??
     function loadAfterUpload() {
         $('#add-photos').hide();
         $('#progresas-dabar').html('2');
@@ -66,11 +78,13 @@ $(function() {
         $(rightDiv).height(pageHeight);
     }
     
-    alert_t('setNewUserId() function will by called. Now userId = ' + userId);
+    //alert_t('setNewUserId() function will by called. Now userId = ' + $("#userId").val());
+    alert_t('setNewUserId() function will by called. Now userId = ' + parsed.userId);
     setNewUserId();
-    alert('After call setNewUserId(). New userId = ' + $("#userId").val());
+    alert('After call setNewUserId(). New userId = ' + parsed.userId);
+    alert('After call setNewUserId(). New order_id = ' + parsed.order_id);
     alert_t('Last executed sql = ' + parsed.sql_str);
-    alert_t(parsed.error_str);
+    alert_t('Last error = ' + parsed.error_str);
 
     // Now that the DOM is fully loaded, 
     // create the dropzone, and setup the event listeners
@@ -78,63 +92,62 @@ $(function() {
         var myDropzone = new Dropzone("form#photos-2",
             {
                 url: '/catalog/view/theme/fotoprizme/upload.php',
-                addRemoveLinks: true,
-                acceptedFiles: 'image/*',
-                dictRemoveFile: 'Išmesti',
-                dictInvalidFileType: 'Tai ne foto',
-                dictFileTooBig: 'Failas per didelis',
-                dictCancelUpload: 'Nutraukti siuntimą',
+                addRemoveLinks              : true,
+                acceptedFiles               : 'image/*',
+                dictRemoveFile              : 'Išmesti',
+                dictInvalidFileType         : 'Tai ne foto',
+                dictFileTooBig              : 'Failas per didelis',
+                dictCancelUpload            : 'Nutraukti siuntimą',
                 dictCancelUploadConfirmation: 'Tikrai nutraukiti siuntimą?',
-                dictDefaultMessage: 'Įtempkite failus čia arba spauskite, kad pasirinktumėte juos iš kompiuterio'
+                dictDefaultMessage          : 'Įtempkite failus čia arba spauskite, kad pasirinktumėte juos iš kompiuterio',
+                method:"POST"
             }
         );
     }
     catch(err) {
         alert(err.message);
     };
-
+    //po failopasirinkimo
     myDropzone.on("addedfile", function(file) {
-        // TODO: figure this out
+        // TODO= figure this out
         leftRightBg();
         $('#progresas').show();
         alert_t('addedfile');//RZ
     });
 
+    //cia prideme siunciamus kintamuosius
     myDropzone.on("sending", function(file, xhr, formData) {
-        var userId = $("#userId").val();
-        formData.append('userId', userId);
-        alert_t('sending');//RZ
+        formData.append('userId', parsed.userId);
+        formData.append('order_id', parsed.order_id);
+        alert_t('sending filе : ' + file.name + ":" + parsed.userId + ":" + parsed.order_id);//RZ
     });
-    
+    //cia patnkame po uzsiuntimo
     myDropzone.on("success", function(file, data) {
         console.log(data);
         //RZ cia reikia kazkaip prideti i order_product
-        alert_t('success uploaded file');//RZ
+        alert_t('success uploaded file : ' + file.name);//RZ
     });
     
     myDropzone.on("removedfile", function(file) {
-        var orN = file.name;
-        var size = file.size;
-        var userId = $("#userId").val();
         $.ajax({
             method: 'POST',
             url: cfg.domain + '/catalog/view/theme/fotoprizme/remove.php',
             data: {
                 'orNs': {
-                    'name': orN,
-                    'size': size,
-                    'userId': userId
+                    'name': file.name,
+                    'size': file.size,
+                    'userId': $("#userId").val()
                 }
             }
         })
-            .done(function(data) {
-                console.log(data);
-            });
+        .done(function(data) {
+            console.log(data);
+        });
         console.log(file);
         alert_t('removedfile');//RZ
     });
 
-    // Load next step after uploading.
+    //RZ Load next step after uploading. pakeisti oder status ir pereiti
     $('#ikeliau-toliau').click(function(e) {
         e.preventDefault();
         $.ajax({
@@ -145,7 +158,7 @@ $(function() {
                 order_status_id: 17 // Nuotraukos sukeltos
             }
         });
-
+        //RZ ir pereiti
         loadAfterUpload();
         alert_t('po nuotrauku sukelimo');//RZ
     });
@@ -153,10 +166,6 @@ $(function() {
     leftRightBg();
     
     var photoInput = $("#photos-2");
-
-    $('#add-photos').on('mouseenter', function () {
-        var userId = $("#userId").val();
-    });
 
     // Progress
     var back = $('#atgal');
@@ -231,7 +240,7 @@ $(function() {
             '#apmokejimas'
         ];
         $(steps).each(function(index, value) {
-            if(!$(value).is(":hidden")) {
+            if(!$(value).is("=hidden")) {
                 window.additionalHeight = $(value).height();
             }
         });
@@ -248,7 +257,7 @@ $(function() {
         $('.payment-successful').show();
         $('.payment-successful').modal();
         $('.payment-successful').on($.modal.CLOSE, function(event, modal) {
-            history.pushState({}, '', 'http://kado.lt');
+            history.pushState({}, '', 'http=//kado.lt');
         });
     }
 
@@ -306,30 +315,5 @@ $(function() {
     $(window).on('scroll touchmove', function() {
         $('#menu-1').toggleClass('narrow', $(document).scrollTop() > 40);
     });
-
-    ////////// Testing
-    $('img').click(function() {
-        var names = [];
-        $.ajax({
-            method: 'POST',
-            url: cfg.domain + '/catalog/view/theme/fotoprizme/set_size_quantity_cookie.php',
-            data: {
-                names: [
-                    'first name',
-                    'second name'
-                ],
-                sizes: [
-                    '10x20',
-                    '9x15'
-                ],
-                quantities: [
-                    '3',
-                    '21'
-                ]
-            }
-        })
-            .done(function(msg) {
-                alert(msg);
-            });
-    });
+    
 });

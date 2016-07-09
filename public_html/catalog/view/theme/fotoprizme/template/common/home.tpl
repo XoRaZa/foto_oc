@@ -1,7 +1,6 @@
 <?php echo $header; ?>
 <!--suppress ALL -->
-<? //RZ echo var_dump($session_id); ?>
-<input type="hidden" id="sessionId" value="<? //RZ echo $session_id; ?>">
+
 <div id="kaire"></div>
 <div class="container">
     <div class="row">
@@ -56,10 +55,20 @@
             <div class="nuotrauku-kelimas" id="ikelti-nuotraukas">
                 <!-- Image uploading -->
                 <div id="add-photos">
-                    <form actionn="" class="dropzone" id="photos-2"></form>
-                    <a href="" id="ikeliau-toliau">Tęsti</a>
-                    <input type="hidden" id="userId" value="">
+                    <form action="" class="dropzone" id="photos-2">
+                    <input type="hidden" id="userId" value="null">
+                    <input type="hidden" id="order_id" value="null">
+                    <!--
+                    <input type="hidden" id="order_product_id" value="2">
+                    <input type="hidden" id="product_id" value="3">
+                    <input type="hidden" id="photo_size" value="4">
+                    <input type="hidden" id="pavirsius" value="5">
+                    <input type="hidden" id="kadravimas" value="6">
+                    <input type="hidden" id="quantity" value="7">
+                    -->
                     <input type="hidden" id="payment-successful" value="<?php if (isset($paymentSuccessful)) echo $paymentSuccessful; ?>">
+                    </form>
+                    <a href="" id="ikeliau-toliau">Tęsti</a>
                 </div>
 
                 <div id="patvirtinimas" title="Ar norite pradėti iš naujo?" style="display: none;">

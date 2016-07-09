@@ -27,8 +27,8 @@ function get_self_url() {
 try {
     $orderId = $_COOKIE['userId'];
 
-    $con = new PDO('mysql:host=localhost;dbname=pprelati_fotop;charset=utf8', 'pprelati_fotop', 'jusK1tas');
-    $stmt = $con->prepare('SELECT total FROM oc_order WHERE custom_field = :user_id');
+    $conn = new PDO('mysql:host=localhost;dbname=pprelati_fotop;charset=utf8', 'pprelati_fotop', 'jusK1tas');
+    $stmt = $conn->prepare('SELECT total FROM oc_order WHERE custom_field = :user_id');
     $stmt->execute(
         array(
             'user_id' => $orderId

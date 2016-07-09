@@ -5,8 +5,7 @@
 require_once('connect.php');
 $userId = $_COOKIE['userId'];
 
-$results = $con->query("SELECT * FROM picture WHERE user_id = '$userId'");
-//var_dump($results);
+$results = $conn->query("SELECT * FROM picture WHERE user_id = '$userId'");
 
 ?>
     <table>
@@ -32,24 +31,26 @@ $results = $con->query("SELECT * FROM picture WHERE user_id = '$userId'");
                     <?php
                         $sizes = array();
                         $sql_str = 
-                                "SELECT pr.product_id, model "
-                                ."FROM oc_product pr, oc_product_to_category cat "
-                                ."WHERE pr.product_id = cat.product_id AND cat.category_id = 59";
+                            "SELECT pr.product_id, model "
+                            ."FROM oc_product pr, oc_product_to_category cat "
+                            ."WHERE pr.product_id = cat.product_id AND cat.category_id = 59";
                         
-                        foreach ($con->query($sql_str) as $row) {
+                        foreach ($conn->query($sql_str) as $row) {
                             $sizes[] = array('product_id' => $row['product_id'], 'model' => substr($row['model'], -5));
                         }
                     
-                    $saved = isset($_COOKIE['sizeQ']) ? json_decode($_COOKIE['sizeQ'], TRUE) : '';
+                        $saved = isset($_COOKIE['sizeQ']) ? json_decode($_COOKIE['sizeQ'], TRUE) : '';
                     ?>
                     <div class="select-style">
                         <select name="dydis" class="dydis">
                             <!--<option value="" selected="selected" hidden="hidden"></option>-->
                             <?php foreach($sizes as $size){ ?>
                                 <?php
-                                $savedSize = isset($saved[$result['name']]['size']) ? $saved[$result['name']]['size'] : '';
+                                    $savedSize = isset($saved[$result['name']]['size']) ? $saved[$result['name']]['size'] : '';
                                 ?>
-                                <option value="<?php echo $size['product_id'] ?>" <?php if($savedSize == $size['model']) { echo ' selected'; } ?>><?php echo $size['model'] ?></option>
+                                <option value="<?php echo $size['product_id'] ?>"<?php if($savedSize == $size['model']) { echo ' selected'; } ?>>
+                                    <?php echo $size['model'] ?>
+                                </option>
                             <?php }; ?>
                         </select>
                     </div>
@@ -65,7 +66,9 @@ $results = $con->query("SELECT * FROM picture WHERE user_id = '$userId'");
                         <select name="pavirsius" class="pavirsius">
                             <!--<option value="" selected="selected" hidden="hidden"></option>-->
                             <?php foreach($pavirsiai as $val => $name): ?>
-                                <option value="<?php echo $val; ?>"><?php echo $name; ?></option>
+                                <option value="<?php echo $name; ?>">
+                                    <?php echo $name; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -73,23 +76,29 @@ $results = $con->query("SELECT * FROM picture WHERE user_id = '$userId'");
                 <td class="td-kadravimas">
                     <div class="select-style">
                         <?php
-                        $kadravimas = array(
-                            'be-kadravimo' => 'Pilnas',
+                        $kadravimai = array(
+                            'be-kadravimo' => 'Be kadravimo',
                             'su-kadravimu' => 'Su kadravimu'
                         );
                         ?>
                         <select name="kadravimas" class="kadravimas">
                             <!--<option value="" selected="selected" hidden="hidden"></option>-->
-                            <?php foreach($kadravimas as $val => $name): ?>
-                                <option value="<?php echo $val; ?>"><?php echo $name; ?></option>
+                            <?php foreach($kadravimai as $val => $name): ?><option value="<?php echo $name; ?>">
+                                    <?php echo $name; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                 </td>
                 <td class="td-kiekis">
-                    <input type="number" name="kiekis" class="kiekis" value="<?php if(isset($saved[$result['name']]['quantity'])) {
-                        echo $saved[$result['name']]['quantity'];
-                    } else { echo '1'; } ?>" min="1">
+                    <input type="number" name="kiekis" class="kiekis" value="
+                        <?php if(isset($saved[$result['name']]['quantity'])) {
+                                echo $saved[$result['name']]['quantity'];
+                            } else { 
+                                echo '1'; 
+                            } 
+                        ?>
+                        " min="1">
                 </td>
                 <td class="td-panaikinti">
                     <a class="panaikinti"><i class="fa fa-trash-o"></i></a>

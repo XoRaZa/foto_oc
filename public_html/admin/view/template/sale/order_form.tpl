@@ -990,14 +990,22 @@ $('#button-refresh').on('click', function() {
 					html += '<tr>';
 					html += '  <td class="text-left">' + product['name'] + ' ' + (!product['stock'] ? '<span class="text-danger">***</span>' : '') + '<br />';
                                         //RZ start pictures thumbs
+                                        html += '<b>';
                                         for (j = 0; j < json['pictures']['product_pictures'].length; j++) {
                                             picture = json['pictures']['product_pictures'][j];
                                             if (picture['product_id'] == product['product_id'] ){
-                                                html += '  <a href="' + picture['url'] + '"><img src="';
-                                                html += picture['url_thumb'] + '" alt="Testine nuotruka" height="42" width="42">Kiekis : ';
-                                                html += picture['quantity'] + ' vnt.</a><br>';
+                                                
+                                                html += '<a href="' + picture['url'] + '"><img src="';
+                                                html += picture['url'] + '" alt="" height="42" width="42" target="_blank">';
+                                                html += '&nbsp&nbsp&nbsp';
+                                                html += picture['pavirsius'] + '&nbsp&nbsp&nbsp';
+                                                html += picture['kadravimas'] + '&nbsp&nbsp&nbsp';
+                                                html += 'Kiekis &nbsp : &nbsp ' + picture['quantity'] + ' &nbsp vnt. &nbsp';
+                                                html += '</a><br>';
+                                                
                                             }
                                         }
+                                        html += '<b>';
                                         //RZ end
 					html += '  <input type="hidden" name="product[' + i + '][product_id]" value="' + product['product_id'] + '" />';
 					

@@ -9,6 +9,7 @@ $error_str = 'error_str';
  * t.y. siame lauke visi duomenys turi buti serializuoti.
  ******************************************************************************/
 $userId = serialize(md5(uniqid('', TRUE)));
+$statusId = 1; //status 1 tai Pending arba kitaip Laukiantis
 $currentTime = time();
 $expireDate = $currentTime+60*60*24*365;
 $cookieName = 'userId';
@@ -16,44 +17,48 @@ $cookieNameSet = $cookieName . 'Set';
 setcookie($cookieName, $userId, $expireDate, '/');
 setcookie($cookieNameSet, $currentTime, $expireDate, '/');
 setcookie('photo-count', 1, time()+60*60*24*365, '/');
-$data = array($cookieName => $userId, $cookieNameSet => $currentTime, $error_str => '', 'sql_str' => 'empty', 'userIP' => $userIP);
 
-//TODO:2016-07-02:rimas:reikia kazkaip realizuoti
+$data = array(
+    $cookieName => $userId, 
+    $cookieNameSet => $currentTime, 
+    $error_str => 'none', 
+    'sql_str' => 'empty', 
+    'userIP' => $userIP,
+    'order_id'=> ''
+);
+
+//TODO:2016-07-02:rimas:siais dviem keitimais reikia kazkaip realizuoti orderio kurimo sauguma t.y. autorizacija
 //??$this->load->model('fotoprisme/fotoorder');
 //??$this->model_fotoprisme_fotoorder->createNewOrder($userId);
 
-function createNewOrder($con, $userId, $userIP) {
+function createNewOrder($conn, $userId, $userIP, $statusId) {
     global $data;
     try
     {
-        $sql_str = "INSERT INTO `oc_order` ( `custom_field`, `order_status_id`, `date_added`, `date_modified`, `ip`) "
-            . "VALUES ('". $userId ."', 1, '".date('Y-m-d h:i:s', time())."','".date('Y-m-d h:i:s', time())."', '". $userIP ."' )";
+        $sql_str = "INSERT INTO `".DB_PREFIX."order` ( `custom_field`, `order_status_id`, `date_added`, `date_modified`, `ip`) "
+            . "VALUES ('$userId', '$statusId', '".date('Y-m-d h:i:s', time())."','".date('Y-m-d h:i:s', time())."', '$userIP' )";
         $data['sql_str'] = $sql_str;
-        $stmt = $con->prepare($sql_str);
-        $stmt->execute();
-        /*
-        $sql_str = 'INSERT INTO `oc_order` ( `custom_field`, `order_status_id`, `date_added`, `date_modified`) ' 
-                             . 'VALUES ( :user_id,       :order_status_id,  :date_added,  :date_modified)';
-        $data['sql_str'] = $sql_str;
-        $stmt = $con->prepare($sql_str);
-        $stmt->execute(
-            array(
-                'user_id' => $userId,
-                'order_staus_id' => 1, //status 1 tai Pending arba kitaip Laukiantis
-                'date_added' => date('Y-m-d h:i:s', time()),
-                'date_modified' => date('Y-m-d h:i:s', time())
-            )
-        );
-        */
-
-        $sql_str = "SELECT `order_id` FROM `oc_order` WHERE `custom_field` = '".$userId."'";
-        $data['sql_str'] = $sql_str;  
-        $rows = $con->query($sql_str);
-        foreach ($rows as $row) {
-            $orderId = $row['order_id'];
+        file_put_contents(DIR_TMP . '--foto-new-user-id.html', $sql_str."\n");
+        $result = $conn->query($sql_str);
+        if (!$result){
+            file_put_contents(DIR_TMP . '--foto-new-user-id.html', "Sql error\n", FILE_APPEND);
         }
-        $data[$error_str] = $orderId;
         
+        $sql_str = "SELECT `order_id` FROM `".DB_PREFIX."order` WHERE `custom_field` = '$userId'";
+        $data['sql_str'] = $sql_str;  
+        file_put_contents(DIR_TMP.'--foto-new-user-id.html', $sql_str."\n", FILE_APPEND);
+        $result = $conn->query($sql_str);
+        if (!$result){
+            file_put_contents(DIR_TMP . '--foto-new-user-id.html', "Sql error\n", FILE_APPEND);
+        }
+        //jei daugiau nei vienas toks tai imti paskutinio orderio id
+        foreach ($result as $row) {
+            $order_id = $row['order_id'];
+        }
+        $data[$error_str] = $order_id;
+        $data['order_id'] = $order_id;
+        
+        file_put_contents(DIR_TMP . '--foto-new-user-id.html', $orderId."\n" , FILE_APPEND);
          
     }
     catch (Exception $exc)
@@ -64,27 +69,21 @@ function createNewOrder($con, $userId, $userIP) {
 
     try
     {
-        $sql_str = "INSERT INTO `oc_order_product` (`order_id`, `product_id`, `name`, `model`, `quantity`)"
-            . "VALUES (".$orderId.", 1, 'Nuotraukų spausdinimas','".$userId."',0)";
+       
+        $sql_str = 
+                "SELECT pr.`product_id`"
+                ."FROM `".DB_PREFIX."product` pr, `oc_product_to_category` cat "
+                ."WHERE pr.`product_id` = cat.`product_id` AND cat.`category_id` = '59'";
+        file_put_contents(DIR_TMP . '--foto-new-user-id.html', $sql_str."\n" , FILE_APPEND);
+        foreach ($conn->query($sql_str) as $row) {
+            $sql_str = "INSERT INTO `".DB_PREFIX."order_product` (`order_id`, `product_id`, `name`, `model`, `quantity`)"
+                . "VALUES ('$orderId', '".$row['product_id']."', 'Nuotraukų spausdinimas','$userId', '0') ";
+            file_put_contents(DIR_TMP . '--foto-new-user-id.html', $sql_str."\n" , FILE_APPEND);
+            $result = $conn->query($sql_str);
+        }
+                            
         $data['sql_str'] = $sql_str;
-        $stmt = $con->prepare($sql_str);
-        $stmt->execute();
-                
-        /*
-        $sql_str = 'INSERT INTO `oc_order_product` (`order_id`, `product_id`, `name`, `model`, `quantity`) '
-                                     . 'VALUES (:order_id,  :product_id,  :name,  :model,  :quantity)';
-        $stmt = $con->prepare($sql);
-        $data['sql_str'] = $sql_str;
-        $stmt->execute(
-            array(
-                'order_id' => $orderId,
-                'product_id' => 1,
-                'name' => 'Nuotraukų spausdinimas',
-                'model' => $userId,
-                'quantity' => 0
-            )
-        );
-        */
+        
     }
     catch (Exception $exc)
     {
@@ -94,8 +93,7 @@ function createNewOrder($con, $userId, $userIP) {
     
 };
 
-
-createNewOrder($con, $userId, $userIP);
+createNewOrder($conn, $userId, $userIP, $statusId);
 
 echo json_encode($data);
 

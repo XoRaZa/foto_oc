@@ -74,8 +74,6 @@ class Picture {
                                         );
                                     }       
 				} else {
-                                    //FIXIT:2016-06-02:rimas: kai nera picture lenteleje
-                                    //atitikmens i lentele order_product cia meta klaida
                                     $this->remove($key);
 				}
                         }
@@ -83,6 +81,13 @@ class Picture {
                 
 		return $this->data;
 	}
+        
+	public function remove($key) {
+            
+		$this->data = array();
+                
+	}
+        
 /*
     'order_id' => $picture_query->row['order_id'],
     'order_product_id' => $picture_query->row['order_product_id'],

@@ -3,14 +3,19 @@
 require_once('connect.php');
 
 $name = $_POST['name'];
+$pavirsius = $_POST['pavirsius'];
+$kadravimas = $_POST['kadravimas'];
 $quantity = $_POST['quantity'];
-changeOneQuantity($con, $name, $quantity);
 
-function changeOneQuantity($con, $name, $quantity) {
-    $stmt = $con->prepare('UPDATE picture SET quantity = :quantity WHERE name = :name');
+changeOneQuantity($conn, $name, $pavirsius, $kadravimas, $quantity);
+
+function changeOneQuantity($conn, $name, $pavirsius, $kadravimas, $quantity) {
+    $stmt = $conn->prepare('UPDATE picture SET quantity = :quantity, pavirsius = :pavirsius, kadravimas = :kadravimas WHERE name = :name');
     $stmt->execute(
         array(
             'quantity' => $quantity,
+            'pavirsius' => $pavirsius,
+            'kadravimas' => $kadravimas,
             'name' => $name
         )
     );

@@ -15,7 +15,7 @@ $zipPath = __DIR__ . '/uploads/zip/' . $date . '_' . $userId . '.zip';
 $dlPath = '/catalog/view/theme/fotoprizme/uploads/zip/' . $date . '_' . $userId . '.zip';
 $zip->open($zipPath, ZipArchive::CREATE);
 
-$stmt = $con->prepare('SELECT * FROM picture WHERE user_id = :user_id');
+$stmt = $conn->prepare('SELECT * FROM picture WHERE user_id = :user_id');
 $stmt->execute(array(
     'user_id' => $userId
 ));
