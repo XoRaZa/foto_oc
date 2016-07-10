@@ -33,7 +33,8 @@ $(document).ready(function() {
             url: cfg.domain + '/catalog/view/theme/fotoprizme/change_order_status_id.php',
             data: {
                 userId: $('#userId').val(),
-                order_status_id: 19 // Apmokėjimas pradėtas
+                order_status_id: 19, // Apmokėjimas pradėtas
+                update_order_product: '0'
             }
         })
         var fields = [

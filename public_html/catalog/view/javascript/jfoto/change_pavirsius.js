@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    return ;
     var pavirsiusSelect = $('.pavirsius');
     $(pavirsiusSelect).change(function() {
         var pavirsius = $(this).val();

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    return ;
     var kadravimasSelect = $('.kadravimas');
     $(kadravimasSelect).change(function() {
         var kadravimas = $(this).val();

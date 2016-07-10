@@ -77,12 +77,12 @@ function createNewOrder($conn, $userId, $userIP, $statusId) {
         file_put_contents(DIR_TMP . '--foto-new-user-id.html', $sql_str."\n" , FILE_APPEND);
         foreach ($conn->query($sql_str) as $row) {
             $sql_str = "INSERT INTO `".DB_PREFIX."order_product` (`order_id`, `product_id`, `name`, `model`, `quantity`)"
-                . "VALUES ('$orderId', '".$row['product_id']."', 'Nuotraukų spausdinimas','$userId', '0') ";
+                . "VALUES ('$order_id', '".$row['product_id']."', 'Nuotraukų spausdinimas','$userId', '0') ";
             file_put_contents(DIR_TMP . '--foto-new-user-id.html', $sql_str."\n" , FILE_APPEND);
             $result = $conn->query($sql_str);
         }
-                            
-        $data['sql_str'] = $sql_str;
+        //RZ testavimui                    
+        //$data['sql_str'] = $sql_str;
         
     }
     catch (Exception $exc)

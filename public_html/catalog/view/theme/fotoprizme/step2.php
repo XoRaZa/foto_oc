@@ -91,14 +91,14 @@ $results = $conn->query("SELECT * FROM picture WHERE user_id = '$userId'");
                     </div>
                 </td>
                 <td class="td-kiekis">
-                    <input type="number" name="kiekis" class="kiekis" value="
-                        <?php if(isset($saved[$result['name']]['quantity'])) {
-                                echo $saved[$result['name']]['quantity'];
-                            } else { 
-                                echo '1'; 
-                            } 
+                    <input type="number" name="kiekis" class="kiekis" value="1"
+                        <?php //if(isset($saved[$result['name']]['quantity'])) {
+                              //  echo $saved[$result['name']]['quantity'];
+                            //} else { 
+                            //    echo '1'; 
+                            //} 
                         ?>
-                        " min="1">
+                        min="1">
                 </td>
                 <td class="td-panaikinti">
                     <a class="panaikinti"><i class="fa fa-trash-o"></i></a>

@@ -1,5 +1,23 @@
 $(document).ready(function() {
+    
+    var select = $('#pazymeti');
+    $(select).click(function() {
+        $('.td-nuotrauka').find('img').addClass('selected');
+    })
+
+    var deselect = $('#atzymeti');
+    $(deselect).click(function() {
+        $('img.selected').each(function() {
+            $(this).removeClass('selected');
+        })
+    });
+    
     var sizeSelect = $('.dydis');
+    var surfSelect = $('.pavirsius');
+    var cropSelect = $('.kadravimas');
+    var quanSelect = $('.kiekis');
+    var multSelect = $('.dydziai');
+    
     $(sizeSelect).change(function() {
         var name = $(this).parents('tr').attr('id');
         var size = $(this).find("option:selected").text();
@@ -39,10 +57,9 @@ $(document).ready(function() {
         })
     });
     
-    var sizeMultiSelect = $('.dydziai');
-    $(sizeMultiSelect).change(function() {
+    $(multSelect).change(function() {
         names = [];
-        var size = $(sizeMultiSelect).val();
+        var size = $(multSelect).val();
         var selectedImg = $('img.selected');
         $(selectedImg).each(function() {
             var parentTr = $(this).parents('tr');
@@ -80,14 +97,52 @@ $(document).ready(function() {
             }
         })
     });
-    var deselect = $('#atzymeti');
-    $(deselect).click(function() {
-        $('img.selected').each(function() {
-            $(this).removeClass('selected');
-        })
+    
+    $(surfSelect).change(function() {
+        $.ajax({
+            method: "POST",
+            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_pavirsius.php',
+            data: {
+                name: $(this).parents('tr').attr('id'),
+                pavirsius: $(this).val()
+            }
+        });
+        alert('pavirsius : ' + $(this).val());
     });
-    var select = $('#pazymeti');
-    $(select).click(function() {
-        $('.td-nuotrauka').find('img').addClass('selected');
-    })
-});
+    
+    $(cropSelect).change(function() {
+        $.ajax({
+            method: "POST",
+            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_kadravimas.php',
+            data: {
+                name: $(this).parents('tr').attr('id'),
+                kadravimas: $(this).val()
+            }
+        });
+        alert('kadravimas : ' + $(this).val());
+    });
+    
+    $(quanSelect).change(function() {
+        $.ajax({
+            method: "POST",
+            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_quantity.php',
+            data: {
+                order_id: $('#order_id').val(),
+                name: $(this).parents('tr').attr('id'),
+                size: $(this).parents('tr').find('.dydis').val(),
+                quantity: $(this).val()
+            }
+        });
+        alert('kiekis : ' + $(this).val());
+        alert('size : ' + $(this).parents('tr').find('.dydis').val());
+        alert('order : ' + $('#order_id').val());
+    });
+    
+    
+})    
+
+
+/////////////////////////
+//    var surfSelect = $('.pavirsius');
+//    var cropSelect = $('.kadravimas');
+//    var quanSelect = $('.kiekis');

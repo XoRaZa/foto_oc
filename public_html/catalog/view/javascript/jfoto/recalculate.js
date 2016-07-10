@@ -1,4 +1,5 @@
-//perskaiciuoti VISUS laukus||| recalculate.js(recalculate: price, size, quantity, pavirsius, kadravimas and total)
+//perskaiciuoti VISUS laukus||| 
+//recalculate.js(recalculate: price, size, quantity, pavirsius, kadravimas and total)
 $(document).ready(function() {
 
     recount();
@@ -84,13 +85,17 @@ $(document).ready(function() {
         $('html, body').animate({
             scrollTop: $("#apmokejimas").offset().top - 100
         }, 500);
-
+        
+        //pereiname i asmeniniu domenu ivedima
         $.ajax({
             method: 'POST',
             url: cfg.domain + '/catalog/view/theme/fotoprizme/change_order_status_id.php',
             data: {
                 userId: $('#userId').val(),
-                order_status_id: 18 // Dydžiai pasirinkti
+                order_id: $('#order_id').val(),
+                order_status_id: 18, // Dydžiai pasirinkti
+                update_order_product: '1'
+                
             }
         });
     });

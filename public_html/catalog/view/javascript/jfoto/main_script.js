@@ -61,6 +61,7 @@ $(function() {
 
         var toLoad = cfg.domain + '/catalog/view/theme/fotoprizme/step2.php';
         var toLoadTo = $('#rinktis-parametrus');
+        //
         $(toLoadTo).load(toLoad);
     }
 
@@ -115,16 +116,16 @@ $(function() {
         alert_t('addedfile');//RZ
     });
 
-    //cia prideme siunciamus kintamuosius
+    //cia prideme siunciamus kintamuosius apie faila i picture lentele
     myDropzone.on("sending", function(file, xhr, formData) {
         formData.append('userId', parsed.userId);
         formData.append('order_id', parsed.order_id);
+        
         alert_t('sending filе : ' + file.name + ":" + parsed.userId + ":" + parsed.order_id);//RZ
     });
     //cia patnkame po uzsiuntimo
     myDropzone.on("success", function(file, data) {
         console.log(data);
-        //RZ cia reikia kazkaip prideti i order_product
         alert_t('success uploaded file : ' + file.name);//RZ
     });
     
@@ -136,7 +137,7 @@ $(function() {
                 'orNs': {
                     'name': file.name,
                     'size': file.size,
-                    'userId': $("#userId").val()
+                    'userId': parsed.userId
                 }
             }
         })
@@ -147,20 +148,26 @@ $(function() {
         alert_t('removedfile');//RZ
     });
 
-    //RZ Load next step after uploading. pakeisti oder status ir pereiti
+    //RZ Nupaustas "Testi" kai visi pic'as sukelti i dropezone'a. 
+    //pakeisti oder status ir pereiti
+    //i kiekiu ir dydziu keitima
     $('#ikeliau-toliau').click(function(e) {
+        alert_t('Nuspastas "Testi"');
         e.preventDefault();
         $.ajax({
             method: 'POST',
             url: cfg.domain + '/catalog/view/theme/fotoprizme/change_order_status_id.php',
             data: {
-                userId: $('#userId').val(),
-                order_status_id: 17 // Nuotraukos sukeltos
+                userId: parsed.userId,
+                order_id: parsed.order_id,
+                order_status_id: 17, // Nuotraukos sukeltos
+                update_order_product: '0'
             }
         });
         //RZ ir pereiti
+        alert_t('pries nuotrauku sukelima (testi)');//RZ
         loadAfterUpload();
-        alert_t('po nuotrauku sukelimo');//RZ
+        alert_t('po nuotrauku sukelimo (testi)');//RZ
     });
 
     leftRightBg();
@@ -206,7 +213,9 @@ $(function() {
         switch(currentProgressVal) {
             case '1':
                 $('#add-photos').hide();
+                alert_t('pries nuotrauku sukelima (>>>)');//RZ
                 loadAfterUpload();
+                alert_t('po nuotrauku sukelimo (>>>)');//RZ
                 $('#rinktis-parametrus').show();
                 $(currentProgress).html(2);
                 if($('#uzsakymo-suma').length < 1) {
