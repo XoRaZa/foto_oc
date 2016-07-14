@@ -1,6 +1,5 @@
 <?php echo $header; ?>
 <!--suppress ALL -->
-
 <div id="kaire"></div>
 <div class="container">
     <div class="row">
@@ -655,15 +654,23 @@
 </div>
 <?php echo $footer; ?>
 <?php //echo $address; ?>
-
+<script>
+  function alert_t(mess) {
+    testing = true;
+    if (testing){
+        alert(mess);
+    }
+  }
+</script>
+    
 <script>
   window.onload = function() {
-    //alert( 'Dokumentas ir resursai uzkrauti pilnai' );
+    alert_t( 'Dokumentas ir resursai uzkrauti pilnai' );
   };
 </script>
 <script>
   function ready() {
-    //alert( "DOM uzkrautas (be resursu: paveikleliu, kai kuriu css'u ir panasiai)");
+    alert_t( "DOM uzkrautas (be resursu: paveikleliu, kai kuriu css'u ir panasiai)");
   }
   document.addEventListener("DOMContentLoaded", ready);
 </script>

@@ -30,7 +30,7 @@ $(document).ready(function() {
         e.preventDefault();
         $.ajax({
             method: 'POST',
-            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_order_status_id.php',
+            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_order_status.php',
             data: {
                 userId: $('#userId').val(),
                 order_status_id: 19, // Apmokėjimas pradėtas

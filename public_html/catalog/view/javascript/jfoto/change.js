@@ -101,25 +101,25 @@ $(document).ready(function() {
     $(surfSelect).change(function() {
         $.ajax({
             method: "POST",
-            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_pavirsius.php',
+            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_surface.php',
             data: {
                 name: $(this).parents('tr').attr('id'),
                 pavirsius: $(this).val()
             }
         });
-        alert('pavirsius : ' + $(this).val());
+        alert_t('pavirsius : ' + $(this).val());
     });
     
     $(cropSelect).change(function() {
         $.ajax({
             method: "POST",
-            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_kadravimas.php',
+            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_cropping.php',
             data: {
                 name: $(this).parents('tr').attr('id'),
                 kadravimas: $(this).val()
             }
         });
-        alert('kadravimas : ' + $(this).val());
+        alert_t('kadravimas : ' + $(this).val());
     });
     
     $(quanSelect).change(function() {
@@ -133,16 +133,32 @@ $(document).ready(function() {
                 quantity: $(this).val()
             }
         });
-        alert('kiekis : ' + $(this).val());
-        alert('size : ' + $(this).parents('tr').find('.dydis').val());
-        alert('order : ' + $('#order_id').val());
+        alert_ts('kiekis : ' + $(this).val());
     });
-    
     
 })    
 
 
-/////////////////////////
-//    var surfSelect = $('.pavirsius');
-//    var cropSelect = $('.kadravimas');
-//    var quanSelect = $('.kiekis');
+/* RZ si isaugojima cookie'se reikia kazkaip realizuoti(visu parametru)
+ *      //var names = [];
+        //var sizes = [];
+        //var quantities = [];
+        //$('.dydis').each(function() {
+        //    var n = $(this).parents('tr').attr('id');
+        //    names.push(n);
+        //    var s = $(this).val();
+        //    sizes.push(s);
+        //    var q = $(this).parents('tr').find('.kiekis').val();
+        //    quantities.push(q);
+        //});
+        //$.ajax({
+        //    method: "POST",
+        //    url: cfg.domain + '/catalog/view/theme/fotoprizme/set_size_quantity_cookie.php',
+        //    data: {
+        //        names: names,
+        //        sizes: sizes,
+        //        quantities: quantities
+        //    }
+        //})
+
+ */

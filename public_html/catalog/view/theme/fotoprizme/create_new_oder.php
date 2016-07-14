@@ -12,15 +12,12 @@ $userId = serialize(md5(uniqid('', TRUE)));
 $statusId = 1; //status 1 tai Pending arba kitaip Laukiantis
 $currentTime = time();
 $expireDate = $currentTime+60*60*24*365;
-$cookieName = 'userId';
-$cookieNameSet = $cookieName . 'Set';
-setcookie($cookieName, $userId, $expireDate, '/');
-setcookie($cookieNameSet, $currentTime, $expireDate, '/');
-setcookie('photo-count', 1, time()+60*60*24*365, '/');
+setcookie('userId', $userId, $expireDate, '/');
+setcookie('userIdSet', $currentTime, $expireDate, '/');
 
 $data = array(
-    $cookieName => $userId, 
-    $cookieNameSet => $currentTime, 
+    'userId' => $userId, 
+    'userIdSet' => $currentTime, 
     $error_str => 'none', 
     'sql_str' => 'empty', 
     'userIP' => $userIP,
@@ -35,8 +32,10 @@ function createNewOrder($conn, $userId, $userIP, $statusId) {
     global $data;
     try
     {
-        $sql_str = "INSERT INTO `".DB_PREFIX."order` ( `custom_field`, `order_status_id`, `date_added`, `date_modified`, `ip`) "
-            . "VALUES ('$userId', '$statusId', '".date('Y-m-d h:i:s', time())."','".date('Y-m-d h:i:s', time())."', '$userIP' )";
+        $sql_str = "INSERT INTO `".DB_PREFIX."order` ( `custom_field`, `order_status_id`, `date_added`, `date_modified`, `ip`"
+                . ", `firstname`, `lastname`, `email`, `telephone`)"
+                . "VALUES ('$userId', '$statusId', '".date('Y-m-d h:i:s', time())."','".date('Y-m-d h:i:s', time())."', '$userIP'"
+                . ", 'none', 'none', 'test@example.com', '+370 000 00000')";
         $data['sql_str'] = $sql_str;
         file_put_contents(DIR_TMP . '--foto-new-user-id.html', $sql_str."\n");
         $result = $conn->query($sql_str);

@@ -140,7 +140,7 @@ $results = $conn->query("SELECT * FROM picture WHERE user_id = '$userId'");
     </div>
     <button id="apmoketi" class="narsyti">Apmokėti užsakymą</button>
 
-<script type="text/javascript" src="/catalog/view/javascript/jfoto/change_size.js"></script>
+<script type="text/javascript" src="/catalog/view/javascript/jfoto/change.js"></script>
 <script type="text/javascript" src="/catalog/view/javascript/jfoto/change_pavirsius.js"></script>
 <script type="text/javascript" src="/catalog/view/javascript/jfoto/change_kadravimas.js"></script>
 <script type="text/javascript" src="/catalog/view/javascript/jfoto/change_quantity.js"></script>

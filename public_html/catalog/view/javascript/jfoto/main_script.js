@@ -4,12 +4,6 @@
 // sis skriptas, sukuria nauja orderi + prekes
 
 //funkcija skirta alertu isvedimui testavimo metu
-function alert_t(mess) {
-    testing = true;
-    if (testing){
-        alert(mess);
-    }
-}
 $(function() {
     //RZ
     //var userId           = $("#userId").val();
@@ -24,14 +18,14 @@ $(function() {
     var parsed = '';
     
     //sukuriamas naujas tuscias orderis su viena prreke(product_id=1 ir quantity=0
-    function setNewUserId() {
+    function createNewOrder() {
         $.ajax({
             async : false,
             method: "POST",
             //RZ kolkas nereikialinga
             //bet galima panaudoti duomenu perdavimui i php (kaip $_POST kintamieji)
             //data: { "name": "--name--", "location": "--location--" },
-            url: cfg.domain + '/catalog/view/theme/fotoprizme/new_user_id.php'
+            url: cfg.domain + '/catalog/view/theme/fotoprizme/create_new_oder.php'
             })
             .done(function(data, textStatus, jqXHR) {
                 parsed = $.parseJSON(data);
@@ -40,7 +34,7 @@ $(function() {
                 alert_t(textStatus + " . New order and userId created. userId = " + parsed.userId + "  order_id = " + parsed.order_id);//RZ
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
-                alert( "setNewUserId() function error = "  + textStatus + '=' + errorThrown);
+                alert( "createNewOrder() function error = "  + textStatus + '=' + errorThrown);
             })
             .always(function(jqXHR, textStatus, errorThrown) {
                 //alert_t( "always complete -> " + textStatus);//RZ
@@ -59,10 +53,11 @@ $(function() {
             scrollTop: $("#rinktis-parametrus").offset().top - 100
         }, 500);
 
-        var toLoad = cfg.domain + '/catalog/view/theme/fotoprizme/step2.php';
-        var toLoadTo = $('#rinktis-parametrus');
-        //
-        $(toLoadTo).load(toLoad);
+        //var toLoad = cfg.domain + '/catalog/view/theme/fotoprizme/step2.php';
+        //var toLoadTo = $('#rinktis-parametrus');
+        //$(toLoadTo).load(toLoad);
+        //RZ jQuery .load() ajax
+        $('#rinktis-parametrus').load(cfg.domain + '/catalog/view/theme/fotoprizme/step2.php');
     }
 
     function leftRightBg() {
@@ -79,11 +74,11 @@ $(function() {
         $(rightDiv).height(pageHeight);
     }
     
-    //alert_t('setNewUserId() function will by called. Now userId = ' + $("#userId").val());
-    alert_t('setNewUserId() function will by called. Now userId = ' + parsed.userId);
-    setNewUserId();
-    alert('After call setNewUserId(). New userId = ' + parsed.userId);
-    alert('After call setNewUserId(). New order_id = ' + parsed.order_id);
+    //alert_t('createNewOrder() function will by called. Now userId = ' + $("#userId").val());
+    alert_t('createNewOrder() function will by called. Now userId = ' + parsed.userId);
+    createNewOrder();
+    alert_t('After call createNewOrder(). New userId = ' + parsed.userId);
+    alert_t('After call createNewOrder(). New order_id = ' + parsed.order_id);
     alert_t('Last executed sql = ' + parsed.sql_str);
     alert_t('Last error = ' + parsed.error_str);
 
@@ -156,7 +151,7 @@ $(function() {
         e.preventDefault();
         $.ajax({
             method: 'POST',
-            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_order_status_id.php',
+            url: cfg.domain + '/catalog/view/theme/fotoprizme/change_order_status.php',
             data: {
                 userId: parsed.userId,
                 order_id: parsed.order_id,

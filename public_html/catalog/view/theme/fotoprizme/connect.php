@@ -1,6 +1,6 @@
 <?php
 //blokuojami IP address'ai
-require_once('google_ip_denied.php');
+require_once('ip_denied.php');
 $userIP = get_client_ip();
 foreach ($blocked_google_ip as $value) {
     if ($value == $userIP ){
